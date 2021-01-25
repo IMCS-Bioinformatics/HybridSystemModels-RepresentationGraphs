@@ -1,6 +1,16 @@
+class JurisDataHolder:
+    def __init__(self) -> None:
+        self.genes = {}
+        self.bs = {'bin': 0, 'tern': 0}
+        self.orders = {}
+        self.vn = {}
+        self.groups = {}
+        self.states = {}
+        super().__init__()
+
+
 def split_string_with_delimiter(line, delimiter):
     return line.split(delimiter)
-
 
 def toNumbers(number_list):
     return [int(x) for x in number_list]
@@ -8,7 +18,8 @@ def toNumbers(number_list):
 def remove_empty_lines(data):
     return [line.rstrip() for line in data if len(line.rstrip())>0]
 
-def lasa_datus(dirname, filename, paz):
+def read_juris_file(filename, only_0_reachable):
+    paz = 1 if only_0_reachable else 0
     def get_ordering(info, data):
         cI_poz = []
         cro_poz = []
@@ -61,21 +72,12 @@ def lasa_datus(dirname, filename, paz):
 
         return "".join(rez)
 
-    with open(dirname+'/'+filename,"r") as f:
+    with open(filename,"r") as f:
         data = f.readlines()
 
     data = remove_empty_lines(data)
 
-    class DataHolder:
-        pass
-
-    info = DataHolder()
-    info.genes = {}
-    info.bs = {'bin': 0, 'tern': 0}
-    info.orders = {}
-    info.vn = {}
-    info.groups = {}
-    info.st = {}
+    info = JurisDataHolder()
     iii = 2
     g_count = int(data[iii])
     info.bs['bin'] = int(split_string_with_delimiter(data[iii + 2], " ")[0])
@@ -127,20 +129,22 @@ def lasa_datus(dirname, filename, paz):
             stG = None
 
         if paz == 0 or (paz == 1 and from0 == 1):
-            info.st[st_id] = {'id': st_id, 'genes': G, 'name': nosaukums(data[ii + 3], info.bs), 'from0': from0, 'group': stG, 'lines': {}}
+            info.states[st_id] = {'id': st_id, 'genes': G, 'name': nosaukums(data[ii + 3], info.bs), 'from0': from0, 'group': stG, 'lines': {}}
             l_sk = int(data[ii + 4])
             l_info = split_string_with_delimiter(data[ii + 5], " ")
             for j in range(l_sk):
                 l_id = st_id + "." + l_info[j * 2]
                 gene_id = l_info[j * 2+1]
                 gene = info.genes[int(gene_id)]
-                info.st[st_id]["lines"][l_id] = {'id': l_id, 'st': l_info[j * 2], 'gene': gene}
+                info.states[st_id]["lines"][l_id] = {'id': l_id, 'to_state': l_info[j * 2], 'gene': gene, 'from_state':st_id}
         ii += 6
 
     info.genes = split_string_with_delimiter(data[3], " ")
     return info
 
-result = lasa_datus("./", "model_000010.txt",1)
-#result = lasa_datus("Lambda_Core_blue/", "model_000001.txt",1)
-for state in result.st:
-    print(result.st[state])
+# result = read_juris_file("model_000010.txt",True)
+# #result = read_juris_file("Lambda_Core_blue/model_000001.txt",True)
+# for state in result.states:
+#    print(result.states[state])
+# for group in result.groups:
+#    print(result.groups[group])
