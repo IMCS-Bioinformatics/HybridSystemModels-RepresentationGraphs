@@ -15,13 +15,13 @@ def find_sources(file_contents):
             to_id = line['to_state']
             to_group = file_contents.states[to_id].group
             if to_group is None: to_group = to_id
-            in_node_set.add(to_group)
+            if to_group != group: in_node_set.add(to_group)
 
     without_incoming = all_node_set.difference(in_node_set)
     without_incoming = sorted(list(without_incoming))
     print(without_incoming)
     #print([file_contents.states[x].name for x in without_incoming])
-    #print([x for x in without_incoming if 'G' in x])
+    #print([x for x in without_incoming if 'G' in x]) #print only groups
 
 def print_groups(file_contents):
     group_sizes = []
