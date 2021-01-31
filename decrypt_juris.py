@@ -8,6 +8,16 @@ class JurisDataHolder:
         self.states = {}
         super().__init__()
 
+class JurisState:
+    def __init__(self, st_id = None, genes = None, name=None, from0=0, group=None) -> None:
+        self.id = st_id
+        self.genes = genes
+        self.name = name
+        self.from0 = from0
+        self.group = group
+        self.lines = {}
+        super().__init__()
+
 
 def split_string_with_delimiter(line, delimiter):
     return line.split(delimiter)
@@ -129,14 +139,15 @@ def read_juris_file(filename, only_0_reachable):
             stG = None
 
         if paz == 0 or (paz == 1 and from0 == 1):
-            info.states[st_id] = {'id': st_id, 'genes': G, 'name': nosaukums(data[ii + 3], info.bs), 'from0': from0, 'group': stG, 'lines': {}}
+            info.states[st_id] = JurisState(st_id=st_id, genes=G, name = nosaukums(data[ii + 3], info.bs), from0=from0, group=stG)
+            #info.states[st_id] = {'id': st_id, 'genes': G, 'name': nosaukums(data[ii + 3], info.bs), 'from0': from0, 'group': stG, 'lines': {}}
             l_sk = int(data[ii + 4])
             l_info = split_string_with_delimiter(data[ii + 5], " ")
             for j in range(l_sk):
                 l_id = st_id + "." + l_info[j * 2]
                 gene_id = l_info[j * 2+1]
                 gene = info.genes[int(gene_id)]
-                info.states[st_id]["lines"][l_id] = {'id': l_id, 'to_state': l_info[j * 2], 'gene': gene, 'from_state':st_id}
+                info.states[st_id].lines[l_id] = {'id': l_id, 'to_state': l_info[j * 2], 'gene': gene, 'from_state':st_id}
         ii += 6
 
     info.genes = split_string_with_delimiter(data[3], " ")
