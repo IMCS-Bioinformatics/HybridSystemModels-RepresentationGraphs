@@ -24,15 +24,28 @@ def find_descendant_attractors_for_one(G, state_id):
     groups = [file_contents.states[x].group for x in nx.dfs_preorder_nodes(G, state_id) if file_contents.states[x].group is not None]
     # filter only main groups
     main_groups = [group for group in groups if int(file_contents.groups[group]["main"]) >= 1]
-    main_groups = list(set(main_groups))
+    main_groups = tuple(sorted(set(main_groups)))
     return main_groups
 
 def find_descendant_attractors(file_contents, state_id_list):
-    """ Creates the map of descendant stated for each given state
+    """ Creates the map of descendant states for each given state
+        group by attractor sets
     """
     G = create_state_graph(file_contents)
-    return {state:find_descendant_attractors_for_one(G, state) for state in state_id_list}
+    state2groups = {state:find_descendant_attractors_for_one(G, state) for state in state_id_list} # this is the map from states to attractor set reachable from that state
 
+    # group together states with the same attractors
+    unique_attractors = set(state2groups.values())
+    d = {}
+    for n in unique_attractors:
+        state_list = [k for k in state2groups.keys() if state2groups[k] == n]
+        d[n] = len(state_list)# store only state count
+    return d
+
+# replace group ids to group names in the group_list
+def replace_group_names(file_contents, group_list):
+    value= tuple(file_contents.groups[x]['name'] for x in group_list)
+    return tuple(sorted(value))
 
 def find_sources(file_contents):
     """ finds states with no incoming links
@@ -54,9 +67,13 @@ def find_sources(file_contents):
     without_incoming = all_node_set.difference(in_node_set)
     without_incoming = sorted(list(without_incoming))
     #print(without_incoming)
+    # print([x for x in without_incoming if 'G' in x]) #print only groups
     descendants = find_descendant_attractors(file_contents, without_incoming)
-    print(descendants)
-    #print([x for x in without_incoming if 'G' in x]) #print only groups
+
+    #replace group ids with names
+    renamed = {replace_group_names(file_contents, x):descendants[x] for x in descendants}
+    print(renamed)
+
     return descendants
 
 # print simple group statistics
@@ -70,6 +87,7 @@ def print_groups(file_contents):
 ########################## program start #############################
 
 data = Path('Lambda_Core_blue/')
+#data = Path('Lambda_Complete/')
 files = [x for x in data.iterdir() if '.txt' in str(x).lower()]
 
 for file_name in files:

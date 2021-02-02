@@ -106,12 +106,14 @@ def read_juris_file(filename, only_0_reachable):
     gr_info = split_string_with_delimiter(data[iii + 6], " ")
     ii = 0
     for i in range(gr_count):
+        gid = "G" + str(gr_info[ii])
+        name = gr_info[ii + 2]+ "("+gr_info[ii + 1]+")" + "_"+gid
         if gr_info[ii + 2] == "1":
-            info.groups["G" + str(gr_info[ii])] = {'id': "G" + str(gr_info[ii]), 'st_count': int(gr_info[ii + 1]), 'main': gr_info[ii + 2],
-                                                   'st_list': split_string_with_delimiter(data[iii + 7 + i], " ")}
+            info.groups[gid] = {'id': gid, 'st_count': int(gr_info[ii + 1]), 'main': gr_info[ii + 2],
+                                                   'st_list': split_string_with_delimiter(data[iii + 7 + i], " "), 'name':name}
         elif paz == 0:
-            info.groups["G" + str(gr_info[ii])] = {'id': "G" + str(gr_info[ii]), 'st_count': int(gr_info[ii + 1]), 'main': gr_info[ii + 2],
-                                                   'st_list': split_string_with_delimiter(data[iii + 7 + i], " ")}
+            info.groups[gid] = {'id': gid, 'st_count': int(gr_info[ii + 1]), 'main': gr_info[ii + 2],
+                                                   'st_list': split_string_with_delimiter(data[iii + 7 + i], " "), 'name':name}
 
         ii += 3
 
