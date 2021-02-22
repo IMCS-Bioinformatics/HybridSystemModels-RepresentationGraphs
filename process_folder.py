@@ -3,16 +3,19 @@ from decrypt_juris import read_juris_file
 import networkx as nx
 
 
-def create_state_graph(file_contents):
+def create_state_graph(file_contents, reverse=False):
     """ Creates the state graph from the Juris data holder
     """
-    G = nx.Graph()
+    G = nx.DiGraph()
     for state_id in file_contents.states:
         state = file_contents.states[state_id]
         for line_id in state.lines:
             line = state.lines[line_id]
             to_id = line['to_state']
-            G.add_edge(state_id, to_id)
+            if reverse:
+                G.add_edge(to_id, state_id)
+            else:
+                G.add_edge(state_id, to_id)
     return G
 
 
@@ -76,6 +79,34 @@ def find_sources(file_contents):
 
     return descendants
 
+############### find decision nodes ##################
+def analyze_decision_nodes(file_contents):
+    G_forward = create_state_graph(file_contents)
+    G = create_state_graph(file_contents, reverse=True)# find reverse graph
+    pred_list = []
+
+    for group_id in file_contents.groups:
+        group_type = int(file_contents.groups[group_id]['main'])
+        if group_type>0:
+            state_list = file_contents.groups[group_id]['st_list']
+            repr_state = state_list[0] # assume that group is strongly connected so we can take any its node for finding predecessors
+            predecessor_nodes = nx.dfs_preorder_nodes(G, repr_state)
+            pred_list.append(list(predecessor_nodes))
+
+    if len(pred_list)!=2: raise Exception("there should be 2 attractors")
+    nodes1 = set(pred_list[0])
+    nodes2 = set(pred_list[1])
+    common = nodes1.intersection(nodes2)
+    #decision nodes are those from which both attractors are reachable but at least for one descendant only one attractor is reachable
+    decision_nodes = []
+    for node in common:
+        for child in G_forward.neighbors(node):
+            if child not in nodes1 or child not in nodes2:
+                decision_nodes.append(node)
+                break
+
+    print(len(file_contents.states), len(decision_nodes))
+
 # print simple group statistics
 def print_groups(file_contents):
     group_sizes = []
@@ -88,9 +119,13 @@ def print_groups(file_contents):
 
 data = Path('Lambda_Core_blue/')
 #data = Path('Lambda_Complete/')
+#data = Path('HK22_Complete/')
+#data = Path('Lambda_Oppenheim/')
 files = [x for x in data.iterdir() if '.txt' in str(x).lower()]
 
 for file_name in files:
     file_contents = read_juris_file(file_name, False)
     #print_groups(file_contents)
-    find_sources(file_contents)
+    #find_sources(file_contents)
+    analyze_decision_nodes(file_contents)
+    #break
