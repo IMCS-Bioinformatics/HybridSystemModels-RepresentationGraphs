@@ -1,6 +1,10 @@
 from pathlib import Path
 from decrypt_juris import read_juris_file
 import networkx as nx
+import networkx.algorithms.isomorphism as iso
+
+small_graph_list = []
+large_graph_list = []
 
 
 def create_state_graph(file_contents, reverse=False):
@@ -16,6 +20,21 @@ def create_state_graph(file_contents, reverse=False):
                 G.add_edge(to_id, state_id)
             else:
                 G.add_edge(state_id, to_id)
+    return G
+
+def create_group_graph(file_contents, group_id):
+    """ Creates the state graph for the given group
+    """
+    G = nx.DiGraph()
+    state_list = file_contents.groups[group_id]['st_list']
+    for state in state_list:
+        lines = file_contents.states[state].lines
+        for key in lines:
+            gene = lines[key]['gene']
+            to_id = lines[key]['to_state']
+            if to_id in state_list:
+                G.add_edge(state, to_id, gene=gene)
+
     return G
 
 
@@ -107,32 +126,47 @@ def analyze_decision_nodes(file_contents):
 
     print(len(file_contents.states), len(decision_nodes))
 
+def is_isomorphic(G1, G_list):
+    for G2 in G_list:
+        res = nx.is_isomorphic(G1, G2, edge_match=iso.categorical_edge_match('gene', ''))
+        if res: return True
+    G_list.append(G1)
+    return False
+
 # print simple group statistics
 def print_groups(file_contents):
     group_sizes = []
     group_genes = []
+    graph_info = ""
     for group_id in file_contents.groups:
         group_type = int(file_contents.groups[group_id]['main'])
         if group_type>0:
             genes = set()
             struc_plus = 0
             struc_minus = 0
+            G = create_group_graph(file_contents, group_id)
+            if G.number_of_nodes()==2: #!!!!!!!!!!!!!!!!!! very data specific!!!!!!!!!!!!!!!!!!
+                if not is_isomorphic(G, small_graph_list): graph_info ="small graph not isomorphic"
+            else:
+                if not is_isomorphic(G, large_graph_list): graph_info =" large graph not isomorphic"
 
             for state in file_contents.groups[group_id]['st_list']:
                 lines = file_contents.states[state].lines
                 for key in lines:
                     gene = lines[key]['gene']
                     genes.add(gene)
-                struc_gene = file_contents.states[state].genes['Struc']
-                if struc_gene=='+':
-                    struc_plus+=1
-                elif struc_gene=='-':
-                    struc_minus+=1
-                else: raise Exception('error in gene')
+                if 'Struc' in file_contents.states[state].genes:
+                    struc_gene = file_contents.states[state].genes['Struc']
+                    if struc_gene=='+':
+                        struc_plus+=1
+                    elif struc_gene=='-':
+                        struc_minus+=1
+                    else: raise Exception('error in gene')
 
             group_info = sorted(list(genes))
             group_info += ['Struc+'+str(struc_plus)]
             group_info += ['Struc-' + str(struc_minus)]
+            group_info += [graph_info]
             group_genes.append(group_info)
             group_sizes.append(len(file_contents.groups[group_id]['st_list']))
     #print(file_name, "node_count:", len(file_contents.states), "group_sizes:", group_sizes)
@@ -142,9 +176,9 @@ def print_groups(file_contents):
 
 ########################## program start #############################
 
-#data = Path('Lambda_Core_blue/')
+data = Path('Lambda_Core_blue/')
 #data = Path('Lambda_Complete/')
-data = Path('HK22_Complete/')
+#data = Path('HK22_Complete/')
 #data = Path('Lambda_Oppenheim/')
 files = [x for x in data.iterdir() if '.txt' in str(x).lower()]
 
@@ -154,3 +188,5 @@ for file_name in files:
     #find_sources(file_contents)
     #analyze_decision_nodes(file_contents)
     #break
+
+print("unique small, large graphs", len(small_graph_list), len(large_graph_list))
