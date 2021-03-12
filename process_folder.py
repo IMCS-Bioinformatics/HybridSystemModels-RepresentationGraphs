@@ -134,7 +134,7 @@ def is_isomorphic(G1, G_list):
     return False
 
 # print simple group statistics
-def print_groups(file_contents):
+def print_groups(filename, file_contents):
     group_sizes = []
     group_genes = []
     graph_info = ""
@@ -171,20 +171,20 @@ def print_groups(file_contents):
             group_sizes.append(len(file_contents.groups[group_id]['st_list']))
     #print(file_name, "node_count:", len(file_contents.states), "group_sizes:", group_sizes)
     #print(file_name, "node_count:", len(file_contents.states), "group_genes:", group_genes)
-    print(group_genes)
+    print(filename, group_genes)
 
 
 ########################## program start #############################
 
-data = Path('Lambda_Core_blue/')
+#data = Path('Lambda_Core_blue/')
 #data = Path('Lambda_Complete/')
 #data = Path('HK22_Complete/')
-#data = Path('Lambda_Oppenheim/')
+data = Path('Lambda_Oppenheim/')
 files = [x for x in data.iterdir() if '.txt' in str(x).lower()]
 
 for file_name in files:
     file_contents = read_juris_file(file_name, False)
-    print_groups(file_contents)
+    print_groups(file_name, file_contents)
     #find_sources(file_contents)
     #analyze_decision_nodes(file_contents)
     #break
