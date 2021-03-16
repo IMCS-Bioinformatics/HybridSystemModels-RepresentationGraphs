@@ -126,12 +126,14 @@ def analyze_decision_nodes(file_contents):
 
     print(len(file_contents.states), len(decision_nodes))
 
+# finds isomprphic graph in list
+# return if found and graph id
 def is_isomorphic(G1, G_list):
-    for G2 in G_list:
+    for id, G2 in enumerate(G_list):
         res = nx.is_isomorphic(G1, G2, edge_match=iso.categorical_edge_match('gene', ''))
-        if res: return True
+        if res: return True, id
     G_list.append(G1)
-    return False
+    return False, len(G_list)-1
 
 # print simple group statistics
 def print_groups(filename, file_contents):
@@ -145,11 +147,15 @@ def print_groups(filename, file_contents):
             struc_plus = 0
             struc_minus = 0
             G = create_group_graph(file_contents, group_id)
-            if G.number_of_nodes()==2: #!!!!!!!!!!!!!!!!!! very data specific!!!!!!!!!!!!!!!!!!
-                if not is_isomorphic(G, small_graph_list): graph_info ="small graph not isomorphic"
-            else:
-                if not is_isomorphic(G, large_graph_list): graph_info =" large graph not isomorphic"
 
+            if G.number_of_nodes()==2: #!!!!!!!!!!!!!!!!!! very data specific!!!!!!!!!!!!!!!!!!
+                iso_graph_list = small_graph_list
+                graph_prefix = "S"
+            else:
+                iso_graph_list = large_graph_list
+                graph_prefix = "L"
+            is_iso, graph_id = is_isomorphic(G, iso_graph_list)
+            graph_info = graph_prefix+str(graph_id)
             for state in file_contents.groups[group_id]['st_list']:
                 lines = file_contents.states[state].lines
                 for key in lines:
@@ -163,7 +169,7 @@ def print_groups(filename, file_contents):
                         struc_minus+=1
                     else: raise Exception('error in gene')
 
-            group_info = sorted(list(genes))
+            group_info = [sorted(list(genes))]
             group_info += ['Struc+'+str(struc_plus)]
             group_info += ['Struc-' + str(struc_minus)]
             group_info += [graph_info]
@@ -171,7 +177,12 @@ def print_groups(filename, file_contents):
             group_sizes.append(len(file_contents.groups[group_id]['st_list']))
     #print(file_name, "node_count:", len(file_contents.states), "group_sizes:", group_sizes)
     #print(file_name, "node_count:", len(file_contents.states), "group_genes:", group_genes)
-    print(filename, group_genes)
+    print(filename, '; ', end="")
+    for g in group_genes:
+        for v in g:
+            print(v,'; ', end="")
+    print()
+
 
 
 ########################## program start #############################
