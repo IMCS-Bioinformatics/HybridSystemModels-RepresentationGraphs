@@ -138,7 +138,9 @@ def is_isomorphic(G1, G_list):
 # print simple group statistics
 def print_groups(filename, file_contents):
     group_sizes = []
-    group_genes = []
+    group_genes_S = []
+    group_genes_L = []
+    group_genes_Aux = []
     graph_info = ""
     for group_id in file_contents.groups:
         group_type = int(file_contents.groups[group_id]['main'])
@@ -190,11 +192,17 @@ def print_groups(filename, file_contents):
                 group_info += ['N+'+str(N_plus)]
                 group_info += ['N-' + str(N_minus)]
                 group_info += [graph_info]
-                group_genes.append(group_info)
+                if G.number_of_nodes()<=2:
+                    group_genes_S.append(group_info)
+                elif group_type>0:
+                    group_genes_L.append(group_info)
+                else:
+                    group_genes_Aux.append(group_info)
                 group_sizes.append(len(file_contents.groups[group_id]['st_list']))
     #print(file_name, "node_count:", len(file_contents.states), "group_sizes:", group_sizes)
     #print(file_name, "node_count:", len(file_contents.states), "group_genes:", group_genes)
     print(filename, '; ', end="")
+    group_genes = group_genes_S+group_genes_L+group_genes_Aux
     for g in group_genes:
         for v in g:
             print(v,'; ', end="")
@@ -204,10 +212,10 @@ def print_groups(filename, file_contents):
 
 ########################## program start #############################
 
-data = Path('Lambda_Core_blue/')
+#data = Path('Lambda_Core_blue/')
 #data = Path('Lambda_Complete/')
 #data = Path('HK22_Complete/')
-#data = Path('Lambda_Oppenheim/')
+data = Path('Lambda_Oppenheim/')
 files = [x for x in data.iterdir() if '.txt' in str(x).lower()]
 
 for file_name in files:
