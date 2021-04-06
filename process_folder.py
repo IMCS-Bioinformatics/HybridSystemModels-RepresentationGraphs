@@ -161,11 +161,14 @@ def print_groups(filename, file_contents):
             if G.number_of_nodes()>2 or group_type>0: #analyze all large groups
                 is_iso, graph_id = is_isomorphic(G, iso_graph_list)
                 graph_info = graph_prefix+str(graph_id)
-                for state in file_contents.groups[group_id]['st_list']:
+                state_list = file_contents.groups[group_id]['st_list']
+                for state in state_list:
                     lines = file_contents.states[state].lines
                     for key in lines:
-                        gene = lines[key]['gene']
-                        genes.add(gene)
+                        to_id = lines[key]['to_state']
+                        if to_id in state_list:
+                            gene = lines[key]['gene']
+                            genes.add(gene)
                     if 'Struc' in file_contents.states[state].genes:
                         struc_gene = file_contents.states[state].genes['Struc']
                         if struc_gene=='+':
@@ -201,10 +204,10 @@ def print_groups(filename, file_contents):
 
 ########################## program start #############################
 
-#data = Path('Lambda_Core_blue/')
+data = Path('Lambda_Core_blue/')
 #data = Path('Lambda_Complete/')
 #data = Path('HK22_Complete/')
-data = Path('Lambda_Oppenheim/')
+#data = Path('Lambda_Oppenheim/')
 files = [x for x in data.iterdir() if '.txt' in str(x).lower()]
 
 for file_name in files:
