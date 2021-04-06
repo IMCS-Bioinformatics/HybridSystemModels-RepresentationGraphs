@@ -142,10 +142,14 @@ def print_groups(filename, file_contents):
     graph_info = ""
     for group_id in file_contents.groups:
         group_type = int(file_contents.groups[group_id]['main'])
-        if group_type>0:
+        if True:
+        #if group_type>0:
             genes = set()
             struc_plus = 0
             struc_minus = 0
+            N_plus = 0
+            N_minus = 0
+
             G = create_group_graph(file_contents, group_id)
 
             if G.number_of_nodes()==2: #!!!!!!!!!!!!!!!!!! very data specific!!!!!!!!!!!!!!!!!!
@@ -154,27 +158,37 @@ def print_groups(filename, file_contents):
             else:
                 iso_graph_list = large_graph_list
                 graph_prefix = "L"
-            is_iso, graph_id = is_isomorphic(G, iso_graph_list)
-            graph_info = graph_prefix+str(graph_id)
-            for state in file_contents.groups[group_id]['st_list']:
-                lines = file_contents.states[state].lines
-                for key in lines:
-                    gene = lines[key]['gene']
-                    genes.add(gene)
-                if 'Struc' in file_contents.states[state].genes:
-                    struc_gene = file_contents.states[state].genes['Struc']
-                    if struc_gene=='+':
-                        struc_plus+=1
-                    elif struc_gene=='-':
-                        struc_minus+=1
-                    else: raise Exception('error in gene')
+            if G.number_of_nodes()>2 or group_type>0: #analyze all large groups
+                is_iso, graph_id = is_isomorphic(G, iso_graph_list)
+                graph_info = graph_prefix+str(graph_id)
+                for state in file_contents.groups[group_id]['st_list']:
+                    lines = file_contents.states[state].lines
+                    for key in lines:
+                        gene = lines[key]['gene']
+                        genes.add(gene)
+                    if 'Struc' in file_contents.states[state].genes:
+                        struc_gene = file_contents.states[state].genes['Struc']
+                        if struc_gene=='+':
+                            struc_plus+=1
+                        elif struc_gene=='-':
+                            struc_minus+=1
+                        else: raise Exception('error in gene')
+                    if 'N' in file_contents.states[state].genes:
+                        N_gene = file_contents.states[state].genes['N']
+                        if N_gene=='+':
+                            N_plus+=1
+                        elif N_gene=='-':
+                            N_minus+=1
+                        else: raise Exception('error in gene')
 
-            group_info = [sorted(list(genes))]
-            group_info += ['Struc+'+str(struc_plus)]
-            group_info += ['Struc-' + str(struc_minus)]
-            group_info += [graph_info]
-            group_genes.append(group_info)
-            group_sizes.append(len(file_contents.groups[group_id]['st_list']))
+                group_info = [sorted(list(genes))]
+                group_info += ['Struc+'+str(struc_plus)]
+                group_info += ['Struc-' + str(struc_minus)]
+                group_info += ['N+'+str(N_plus)]
+                group_info += ['N-' + str(N_minus)]
+                group_info += [graph_info]
+                group_genes.append(group_info)
+                group_sizes.append(len(file_contents.groups[group_id]['st_list']))
     #print(file_name, "node_count:", len(file_contents.states), "group_sizes:", group_sizes)
     #print(file_name, "node_count:", len(file_contents.states), "group_genes:", group_genes)
     print(filename, '; ', end="")
