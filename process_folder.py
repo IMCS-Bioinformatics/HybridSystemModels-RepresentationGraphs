@@ -164,7 +164,9 @@ def print_groups(filename, file_contents):
                 is_iso, graph_id = is_isomorphic(G, iso_graph_list)
                 graph_info = graph_prefix+str(graph_id)
                 state_list = file_contents.groups[group_id]['st_list']
+                from0 = file_contents.states[state_list[0]].from0
                 for state in state_list:
+                    assert from0==file_contents.states[state].from0
                     lines = file_contents.states[state].lines
                     for key in lines:
                         to_id = lines[key]['to_state']
@@ -186,11 +188,13 @@ def print_groups(filename, file_contents):
                             N_minus+=1
                         else: raise Exception('error in gene')
 
+                from0 = '+' if from0==1 else '-'
                 group_info = [sorted(list(genes))]
                 group_info += ['Struc+'+str(struc_plus)]
                 group_info += ['Struc-' + str(struc_minus)]
                 group_info += ['N+'+str(N_plus)]
                 group_info += ['N-' + str(N_minus)]
+                group_info += ['from0' + str(from0)]
                 group_info += [graph_info]
                 if G.number_of_nodes()<=2:
                     group_genes_S.append(group_info)
@@ -214,8 +218,8 @@ def print_groups(filename, file_contents):
 
 #data = Path('Lambda_Core_blue/')
 #data = Path('Lambda_Complete/')
-#data = Path('HK22_Complete/')
-data = Path('Lambda_Oppenheim/')
+data = Path('HK22_Complete/')
+#data = Path('Lambda_Oppenheim/')
 files = [x for x in data.iterdir() if '.txt' in str(x).lower()]
 
 for file_name in files:
