@@ -1,5 +1,5 @@
 from pathlib import Path
-from decrypt_juris import read_juris_file
+from decrypt_juris_v2 import read_juris_file
 import networkx as nx
 import networkx.algorithms.isomorphism as iso
 
@@ -218,8 +218,9 @@ def print_groups(filename, file_contents):
 
 #data = Path('Lambda_Core_blue/')
 #data = Path('Lambda_Complete/')
-data = Path('HK22_Complete/')
+#data = Path('HK22_Complete/')
 #data = Path('Lambda_Oppenheim/')
+data = Path('HK22_From_Lambda_Original/')
 files = [x for x in data.iterdir() if '.txt' in str(x).lower()]
 
 for file_name in files:
