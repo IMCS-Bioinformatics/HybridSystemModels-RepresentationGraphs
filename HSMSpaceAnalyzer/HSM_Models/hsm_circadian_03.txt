@@ -1,0 +1,19 @@
+Circadian_03
+
+3
+Per Bmal RevErb
+3
+3
+bPer bBmal bRevErb
+0
+
+0 1 2 
+2 1 2
+
+1 0
+2
+1 0
+
+0 0 1 0
+1 0
+0 0 1 0
