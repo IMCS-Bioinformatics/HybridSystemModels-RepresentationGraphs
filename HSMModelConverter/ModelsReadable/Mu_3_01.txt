@@ -1,0 +1,22 @@
+
+#GENES
+
+ner c A;  
+
+#BINDINGSITES
+
+bNr{ner} bNL{ner} bO1{c} bO2{c} bO3{c};  
+
+#REGULATIONS
+
+ner(bO1,bO2,bNr) = bO1[]*bNR[] + bO2[]*bNR[];
+c(bO3,bNL) = bO3[]*bNL[];
+A(bO1,bO2,bNr,bO3,bNL) = bO1[]*bNR[]*bO3[c] + bO2[]*bNR[]*bO3[c] + bO1[]*bNR[]*bNL[ner] + bO2[]*bNR[]*bNL[ner];
+
+#CONSTRAINTS_AFFINITIES
+
+bO1[c]+ < bO2[c]- < bO2[c]+ < bO3[c]-;
+
+
+
+

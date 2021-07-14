@@ -1,0 +1,26 @@
+
+#GENES
+
+cI cII cro Q N O P cIII xis int Struc;
+
+#BINDINGSITES
+
+bcII_1{cII} bcII_2{cII} bQ{Q} bN{N} bOR1{cI,cro} bOR2{cI,cro} bOR3{cI,cro} bOL1{cI,cro} bOL2{cI,cro} bOL3{cro,cI};
+
+#REGULATIONS
+
+struc(bQ) = bQ[Q];  
+cI(bOR1,bOR2,bOR3,bcII_1) = bOR1[cI]*bOR3[] + bOR1[cro]*bOR3[] + bOR2[cI]*bOR3[] + bOR2[cro]*bOR3[] + bcII_1[cII]*bOR3[];
+cro,cII,O,P(bOR1,bOR2) = bOR1[]*bOR2[];  
+Q(bN,bcII_3) = bN[N]*bcII_3[];    
+int(bcII_2) = bcII_2[cII];  
+N,cIII,xis(bOL1,bOL2) = bOL1[]*bOL2[];  
+
+#CONSTRAINTS_AFFINITIES
+
+bcII_2+ < bcII_1-; 
+bOR3[cro]+ < bOR2[cro]- < bOR2[cro]+ < bOR1[cro]-;
+bOL3[cro]+ < bOL2[cro]- < bOL2[cro]+ < bOL1[cro]-;
+bOR1[cI]+ < bOR2[cI]- < bOR2[cI]+ < bOR3[cI]-;
+bOL1[cI]+ < bOL2[cI]- < bOL2[cI]+ < bOL3[cI]-;
+ 
