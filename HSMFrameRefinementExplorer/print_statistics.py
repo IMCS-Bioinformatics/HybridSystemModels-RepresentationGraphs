@@ -1,3 +1,5 @@
+# This program reads a folder of state space files and prints their statistical information
+
 import sys
 from pathlib import Path
 from decode_space_file_v2 import read_space_file

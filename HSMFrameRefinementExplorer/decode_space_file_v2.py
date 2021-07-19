@@ -1,3 +1,5 @@
+# This program reads a state space file
+
 class SpaceDataHolder:
     def __init__(self) -> None:
         self.genes = {}
