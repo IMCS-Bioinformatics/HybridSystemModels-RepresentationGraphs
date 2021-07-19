@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-from decrypt_juris_v2 import read_juris_file
+from decode_space_file_v2 import read_juris_file
 import networkx as nx
 import networkx.algorithms.isomorphism as iso
 
