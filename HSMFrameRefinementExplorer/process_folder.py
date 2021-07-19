@@ -1,3 +1,4 @@
+import sys
 from pathlib import Path
 from decrypt_juris_v2 import read_juris_file
 import networkx as nx
@@ -215,19 +216,17 @@ def print_groups(filename, file_contents):
 
 
 ########################## program start #############################
+defaultFolder = '../HSMSpaceAnalyzer/HSM_StateSpaces/HK22_Complete/'
+if len(sys.argv)<=1:
+    print('No stateSpace folder given, using by default', defaultFolder)
+else:
+    defaultFolder = sys.argv[1]
 
-#data = Path('Lambda_Core_blue/')
-#data = Path('Lambda_Complete/')
-#data = Path('HK22_Complete/')
-#data = Path('Lambda_Oppenheim/')
-data = Path('HK22_From_Lambda_Original/')
+data = Path(defaultFolder)
 files = [x for x in data.iterdir() if '.txt' in str(x).lower()]
 
 for file_name in files:
     file_contents = read_juris_file(file_name, False)
     print_groups(file_name, file_contents)
-    #find_sources(file_contents)
-    #analyze_decision_nodes(file_contents)
-    #break
 
 print("unique small, large graphs", len(small_graph_list), len(large_graph_list))
