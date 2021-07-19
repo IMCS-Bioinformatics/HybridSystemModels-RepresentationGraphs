@@ -2,7 +2,13 @@
 This repository contains software for Hybrid System based gene regulatory network Models (HSM). 
 It consists of four tools that can be applied in sequence. The input is ... 
 
+We provide two examples, the first is HSM lambda phage model located in file ...
+![](./assets/LPH2.png)
 
+The second is HK022 phage model located in file...
+![](./assets/HK022.png)
+
+The ’core’ models are shown in red and contain genes (cI, cII,cro) and binding sites (bOR, bcII-1) that are involved in regulatory feedback.
 ## HSMFeatureExtractor 
 
 ## HSMFrameRefinementExplorer
