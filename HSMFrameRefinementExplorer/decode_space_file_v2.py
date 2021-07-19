@@ -1,4 +1,4 @@
-class JurisDataHolder:
+class SpaceDataHolder:
     def __init__(self) -> None:
         self.genes = {}
         self.bs = {'bin': 0, 'tern': 0}
@@ -8,7 +8,7 @@ class JurisDataHolder:
         self.states = {}
         super().__init__()
 
-class JurisState:
+class SpaceState:
     def __init__(self, st_id = None, genes = None, name=None, from0=0, group=None) -> None:
         self.id = st_id
         self.genes = genes
@@ -28,7 +28,7 @@ def toNumbers(number_list):
 def remove_empty_lines(data):
     return [line.rstrip() for line in data if len(line.rstrip())>0]
 
-def read_juris_file(filename, only_0_reachable):
+def read_space_file(filename, only_0_reachable):
     paz = 1 if only_0_reachable else 0
     def get_ordering(info, data):
         cI_poz = []
@@ -87,7 +87,7 @@ def read_juris_file(filename, only_0_reachable):
 
     data = remove_empty_lines(data)
 
-    info = JurisDataHolder()
+    info = SpaceDataHolder()
     iii = 2
     g_count = int(data[iii])
     plus = 2 * g_count + 1
@@ -142,7 +142,7 @@ def read_juris_file(filename, only_0_reachable):
             stG = None
 
         if paz == 0 or (paz == 1 and from0 == 1):
-            info.states[st_id] = JurisState(st_id=st_id, genes=G, name = nosaukums(data[ii + 3], info.bs), from0=from0, group=stG)
+            info.states[st_id] = SpaceState(st_id=st_id, genes=G, name = nosaukums(data[ii + 3], info.bs), from0=from0, group=stG)
             #info.states[st_id] = {'id': st_id, 'genes': G, 'name': nosaukums(data[ii + 3], info.bs), 'from0': from0, 'group': stG, 'lines': {}}
             l_sk = int(data[ii + 4])
             l_info = split_string_with_delimiter(data[ii + 5], " ")
@@ -155,10 +155,3 @@ def read_juris_file(filename, only_0_reachable):
 
     info.genes = split_string_with_delimiter(data[3], " ")
     return info
-
-# result = read_juris_file("model_000010.txt",True)
-# #result = read_juris_file("Lambda_Core_blue/model_000001.txt",True)
-# for state in result.states:
-#    print(result.states[state])
-# for group in result.groups:
-#    print(result.groups[group])

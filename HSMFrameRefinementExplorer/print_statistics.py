@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-from decode_space_file_v2 import read_juris_file
+from decode_space_file_v2 import read_space_file
 import networkx as nx
 import networkx.algorithms.isomorphism as iso
 
@@ -9,7 +9,7 @@ large_graph_list = []
 
 
 def create_state_graph(file_contents, reverse=False):
-    """ Creates the state graph from the Juris data holder
+    """ Creates the state graph from the space data holder
     """
     G = nx.DiGraph()
     for state_id in file_contents.states:
@@ -40,7 +40,7 @@ def create_group_graph(file_contents, group_id):
 
 
 def find_descendant_attractors_for_one(G, state_id):
-    """ Creates the state graph from the Juris data holder
+    """ Creates the state graph from the space data holder
         :returns the list of descendant groups
     """
     # find descendant groups
@@ -226,7 +226,7 @@ data = Path(defaultFolder)
 files = [x for x in data.iterdir() if '.txt' in str(x).lower()]
 
 for file_name in files:
-    file_contents = read_juris_file(file_name, False)
+    file_contents = read_space_file(file_name, False)
     print_groups(file_name, file_contents)
 
 print("unique small, large graphs", len(small_graph_list), len(large_graph_list))
