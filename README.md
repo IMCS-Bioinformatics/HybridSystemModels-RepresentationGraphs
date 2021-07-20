@@ -26,6 +26,25 @@ The parameter data_folder is the folder name containing state space files output
 ## HSMModelConverter
 Conversion of human readable HSM model descriptions to a more technical model description format that is used as input for analysis programs.
 
+**Program and compilation.** To use the parser it has to be compiled with a c++ compiler with c++11 or above.
+Example of command line compilation:
+```sh
+g++ parser.cpp
+```
+
+**Usage and examples.**
+After compiling, run the parser with command line:
+```sh
+a.exe inputfile outputfile
+```
+where `a.exe` is the name of the compiled program, `inputfile` is the path to the model and `outputfile` is the name of the resulting file.
+
+For example:
+```sh
+a.exe ModelsReadable/Circadian_03.txt ModelsTechnical/Circadian_03.txt
+```
+
+
 ## HSMSpaceAnalyzer
 Construction of all state spaces for HSM model under the given set of constraints and analysis of state space component and attractor structure.
 
