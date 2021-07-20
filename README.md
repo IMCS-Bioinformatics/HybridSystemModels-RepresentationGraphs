@@ -11,19 +11,7 @@ The second is HK022 phage model located in file...
 The ’core’ models are shown in red and contain genes (cI, cII,cro) and binding sites (bOR, bcII-1) that are involved in regulatory feedback.
 
 The following software components are currently available:
-## HSMFeatureExtractor 
-Analysis and feature extraction for a given set of state spaces constructed for a particular HSM model.
 
-To run it use the following command line: 
-```sh
-python3 print_statistics.py data_folder
-```
-The parameter data_folder is the folder name containing state space files output by HSMSpaceAnalyzer
-
-## HSMFrameRefinementExplorer
-Construction and analysis of universal state space for HSM model using an iterative model frame refinement approach.
-
- 
 ## HSMModelConverter
 Conversion of human readable HSM model descriptions to a more technical model description format that is used as input for analysis programs.
 
@@ -44,7 +32,6 @@ For example:
 ```sh
 a.exe ModelsReadable/Circadian_03.txt ModelsTechnical/Circadian_03.txt
 ```
-
 
 ## HSMSpaceAnalyzer
 Construction of all state spaces for HSM model under the given set of constraints and analysis of state space component and attractor structure.
@@ -69,5 +56,30 @@ HSMSpaceAnalyzer hsm_lambda_oppenheim.txt
 will use the file *HSM_Models/hsm_lambda_oppenheim.txt* as input. The computed state spaces are stored in directory *HSM_State_Spaces* and in subfolder 
 specified by model name as given in input file – e.g. for *hsm_lambda_oppenheim.txt* in folder *HSM_State_Spaces/Lambda_Oppenheim*. The folder should already exist.
 
+ 
+## HSMFeatureExtractor 
+Analysis and feature extraction for a given set of state spaces constructed for a particular HSM model.
+
+**Requirements**
+* python 3
+* [NetworkX](https://networkx.org/) graph algorithm library 
+
+**Usage and examples.**
+ To run it use the following command line: 
+```sh
+python print_statistics.py data_folder
+```
+The parameter `data_folder` is the folder name containing state space files output by *HSMSpaceAnalyzer*
+
+For example:
+```sh
+python print_statistics.py ../HSMSpaceAnalyzer/HSM_StateSpaces/HK22_Complete
+```
+
+
+## HSMFrameRefinementExplorer
+Construction and analysis of universal state space for HSM model using an iterative model frame refinement approach.
+
+ 
 ### Contact
 This software is developed at the Bioinformatics group of the [Institute of Mathematics and Computer science](https://lumii.lv/). For personal communications, please contact Juris Vīksna (juris.viksna@lumii.lv)
