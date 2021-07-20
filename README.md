@@ -9,9 +9,13 @@ The second is HK022 phage model located in file...
 ![](./assets/HK022.png)
 
 The ’core’ models are shown in red and contain genes (cI, cII,cro) and binding sites (bOR, bcII-1) that are involved in regulatory feedback.
+
+The following software components are currently available:
 ## HSMFeatureExtractor 
+Analysis and feature extraction for a given set of state spaces constructed for a particular HSM model.
 
 ## HSMFrameRefinementExplorer
+Construction and analysis of universal state space for HSM model using an iterative model frame refinement approach.
 
 To run it use the following command line: 
 ```sh
@@ -20,16 +24,19 @@ python3 print_statistics.py data_folder
 The parameter data_folder is the folder name containing state space files output by HSMSpaceAnalyzer
  
 ## HSMModelConverter
+Conversion of human readable HSM model descriptions to a more technical model description format that is used as input for analysis programs.
 
 ## HSMSpaceAnalyzer
-Saliku sajā "savu daļu". Izejas faili iekš src, kompilētie gan bin, gan līmeni zemāk, no kura var palaist tā lai atpazīst lokālos pathus uz failiem (plānoju pielikty vēl īsu readme).
-Folderī HSM_Models - modeļu ieejas faili, t.i. tie, kurus vajadzētu iegūt no Dārtas programmas (atskaitot hsm_loops_2.txt, par kuru pieņemam,. ka rakstīts tikai "tehniskajā
-formātā"). Ģenerētie modeļu ss faili nonāk HSM_StateSpaces. Paliekam pie tiewm 9 (8 bez loops) modeļiem, kas šeit ielikti. Pāris (dažas ne "pārak smukas" atrunas):
+Construction of all state spaces for HSM model under the given set of constraints and analysis of state space component and attractor structure.
 
-Modeļu faili tiek padoti kā parametrs, var saukties kā pagadās, bet svarīgs ir pirmais teksta strings (ModelName) šajos failos e.g. "Lambda_Complete", tajā skaitā:
+A software module for generating set state spaces for HSM model under all consistent constraints on binding affinities. As input is provided a HSM model file describing genes, transcription factors, their binding sites and regulatory functions; the model specific constraints, however, are configurable in program code and are set according to model name that is given in input file. Currently the following model names are recognised by the program: Lambda_Core_red, Lambda_Core_blue, Lambda_Complete, Lambda_Oppenheim, HK22_Complete, Mu_3_01, Circadian_03, Circadian_03_2, Loops_2.
 
-1) Programma šobrīd darbojas tikai zināmiem ModelName- resp., tiem 9, kas šeit parādās
-2) Uzģenerētie telpu faili tiks saglabāt HSM_StateSpaces/[ModelName] kuram tur ir jābūt
-2) Dārtai ģenerējot modeļus tie acīmredzot uzrodas no "readable" ieejas failu nosaukumiem - e.g.  Lambda_Complete.txt dod "Lambda_Complete" model name. Varam pie šī palikt, būtu gan labāk, ja ārtas prtogrammai šo ModelName varētu padot kā parametru.
+The program outputs set of HSM model state spaces (each in a separate file) listing modes, mode transitions, connected component and attractor structure of state space graph. There are several parameters (e.g. conditions for mode reachability) that can be specified in source code.
 
+Program and compilation. C++ source code is compatible with C++Builder (due to convenience of using for development purposes also in-house developed legacy visualisation components), thus compilation with newer C++ compilers may require additional flags/parameters (such as -fpermissive for GNU C++ compiler). The provided binaries are Windows 32 bit executable compiled with Borland C++ Builder 6 and Linux 64 bit executable compiled with GCC 6.5.0.
 
+Usage and examples. The model files are read from local directory HSM_Models with file name provided as input, e.g.:
+
+HSMSpaceAnalyzer hsm_lambda_oppenheim.txt
+
+will use the file HSM_Models/hsm_lambda_oppenheim.txt as input. The computed state spaces are stored in directory HSM_State_Spaces and in subfolder specified by model name as given in input file – e.g. for hsm_lambda_oppenheim.txt in folder HSM_State_Spaces/Lambda_Oppenheim. The folder should already exist.
