@@ -14,14 +14,15 @@ The following software components are currently available:
 ## HSMFeatureExtractor 
 Analysis and feature extraction for a given set of state spaces constructed for a particular HSM model.
 
-## HSMFrameRefinementExplorer
-Construction and analysis of universal state space for HSM model using an iterative model frame refinement approach.
-
 To run it use the following command line: 
 ```sh
 python3 print_statistics.py data_folder
 ```
 The parameter data_folder is the folder name containing state space files output by HSMSpaceAnalyzer
+
+## HSMFrameRefinementExplorer
+Construction and analysis of universal state space for HSM model using an iterative model frame refinement approach.
+
  
 ## HSMModelConverter
 Conversion of human readable HSM model descriptions to a more technical model description format that is used as input for analysis programs.
