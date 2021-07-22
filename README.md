@@ -80,6 +80,12 @@ python print_statistics.py ../HSMSpaceAnalyzer/HSM_StateSpaces/HK22_Complete
 ## HSMFrameRefinementExplorer
 Construction and analysis of universal state space for HSM model using an iterative model frame refinement approach.
 
+The Frame Refinement Exploration tool produces a graph of symbolic states and their transitions, where a symbolic state comprises the mode (binding site association state) and the (partial) information on the binding site association/disassociation threshold ordering and possibly also substance affinity ordering with respect to the association/disassociation thresholds (where they are not recorded within the binding site association states); the transitions are marked by a binding site association or disassociation events.
+Furthermore, the tool allows computing a factor graph of the initial state space graph by means of bisimulation: two symbolic states that can not be distinguished by their available transitions, are grouped together. 
+The strongly connected components in the factor graph are computed, as well.
+The prototype is implemented in Haskell. The main program Statespace.hs contains the algorithm implementation. The data model is also described as a collection of functions and is placed in auxiliary files to be imported during the main program execution.
+For more details of the implementation and its running possibilities, consult the Frame Refinement Exploration Tool section in this repository.
+The results of running the algorithm with different model parameters are in the Results section. 
  
 ### Contact
 This software is developed at the Bioinformatics group of the [Institute of Mathematics and Computer science](https://lumii.lv/). For personal communications, please contact Juris Vīksna (juris.viksna@lumii.lv)
