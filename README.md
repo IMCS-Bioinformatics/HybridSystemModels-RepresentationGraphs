@@ -18,19 +18,19 @@ Conversion of human readable HSM model descriptions to a more technical model de
 **Program and compilation.** To use the parser it has to be compiled with a c++ compiler with c++11 or above.
 Example of command line compilation:
 ```sh
-g++ parser.cpp
+g++ parser.cpp -o HybridSystemModels.exe
 ```
 
 **Usage and examples.**
 After compiling, run the parser with command line:
 ```sh
-a.exe inputfile outputfile
+HybridSystemModels.exe inputfile outputfile
 ```
-where `a.exe` is the name of the compiled program, `inputfile` is the path to the model and `outputfile` is the name of the resulting file.
+where `HybridSystemModels.exe` is the name of the compiled program, `inputfile` is the path to the model and `outputfile` is the name of the resulting file.
 
 For example:
 ```sh
-a.exe ModelsReadable/Circadian_03.txt ModelsTechnical/Circadian_03.txt
+HybridSystemModels.exe ModelsReadable/Circadian_03.txt ModelsTechnical/Circadian_03.txt
 ```
 
 ## HSMSpaceAnalyzer
