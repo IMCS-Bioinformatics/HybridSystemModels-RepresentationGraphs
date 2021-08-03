@@ -119,4 +119,4 @@ For more details of the implementation and its running possibilities, consult th
 The results of running the algorithm with different model parameters are in the Results section. 
  
 ### Contact
-This software is developed at the Bioinformatics group of the [Institute of Mathematics and Computer science](https://lumii.lv/). For personal communications, please contact Juris Vīksna (juris.viksna@lumii.lv)
+This software is developed at the Bioinformatics group of the [Institute of Mathematics and Computer science](https://lumii.lv/). For personal communications, please contact Juris Vīksna.
