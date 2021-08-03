@@ -27,6 +27,22 @@ The ’core’ models are shown in red and contain genes (cI, cII,cro) and bindi
 **Representational example of one equivalence classes of LPH2 state spaces. There are 6 equivalence classes altogether, the one shown here describes the 'ordinary' lysis and lysogeny cycles 
 corresponding to 16 and 2 state attractors in state space.**
 
+**Software.** The available software components on GitHub corresponds to an ongoing work in progress and are provided 'as is' in case they might be useful, but without pretensions to offer a 
+user-friendly pipeline for HSM model design and analysis. In general the software should be able to reproduce already published analysis results on a number of concrete HSM models, which are also 
+provided here. Development and analysis of new HSM models most likely will require modifications in source code.
+
+The following software components are currently available:
+
+**HSMModelConverter** – conversion of human readable HSM model descriptions to a more technical model description format that is used as input for analysis programs.
+
+**HSMSpaceAnalyzer** – construction of all state spaces for HSM model under the given set of constraints and analysis of state space component and attractor structure.
+
+**HSMFeatureExtractor** – analysis and feature extraction for a given set of state spaces constructed for a particular HSM model.
+
+**HSMFrameRefinementExplorer** – construction and analysis of universal state space for HSM model using an iterative model frame refinement approach.
+
+In addition there is a visualisation component based on in-house legacy software modules. Unfortunately due to various compatibility problems inclusion of this visualisation part in open source 
+distributions is not possible. In case it can be useful the visualisation is available 'as is' from the following website: http://susurs.mii.lu.lv/HSMVisualizer/.
 ## HSMModelConverter
 Conversion of human readable HSM model descriptions to a more technical model description format that is used as input for analysis programs.
 
