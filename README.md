@@ -1,16 +1,31 @@
-# HybridSystemModels
-This repository contains software for Hybrid System based gene regulatory network Models (HSM). 
-It consists of four tools that can be applied in sequence. The input is ... 
+# Hybrid system modelling framework HSM
 
-We provide two examples, the first is HSM lambda phage model located in file ...
-![](./assets/LPH2.png)
+HSM modelling framework [1] is a type hybrid system based modelling formalist that is specially adapted for description and analysis of biomolecular networks. 
+HSM is designed to include to be as simple as possible to facilitate model analysis and still to provide sufficient modelling power for accurate descriptions of biological systems. 
 
-The second is HK022 phage model located in file...
-![](./assets/HK022.png)
+A standing-out feature of HSM approach is that it allows differentiating between quantitative and qualitative behavioural aspects of the modelled system. Using this approach gene regulatory network is 
+regarded to be fully defined by HSM with concrete model-specific functions describing variable changes and thresholds triggering state transitions. At the same time, the knowledge about the 
+underlying HSM is assumed to be limited and the initial models are given by HSM frames that include only discrete information about comparative values of HSM parameters (such as growth rates of 
+functions or triggering thresholds) chosen to correspond to experimentally derived or generally assumed facts about the modelled biologic al system. If reachability of states in state space of the 
+initial HSM frame depends on additional comparative relations between the model parameters, these are iteratively added as additional constraints in frame refinements until all the constraints on the 
+parameters affecting the state reachability have been derived. One of the first HSM models LPH1 [2] has been designed lambda phage virus and allowed to derive biological hypotheses on binding site affinities 
+that are required for model dynamic behaviour to be consistent with known observational facts, and which in principle are experimentally verifiable by genome rearrangements.
 
+[1] A.Brazma, K.Cerans, D.Ruklisa, T.Schlitt, J.Viksna. *Modeling and analysis of qualitative behaviour of gene regulatory networks.* Lecture Notes in Computer Science, vol.7699, pp.51-66, 2015.
+
+[2] D.Ruklisa, A.Brazma, K.Cerans, T.Schlitt, J.Viksna. *Dynamics of gene regulatory networks and their dependence on network topology and quantitative parameters – the case of phage Lambda.* BMC Bioinformatics, 20:296, 2019, doi.org/10.1186/s12859-019-2909-z.
+
+**HSM models.** The models currently included here are LPH2 (a lambda phage model based on more recent biological data), HK022 (a model of lambdoid phage HK022, which notably lacks N antitermination gene),
+ and model of core genes for Mu phage.
+
+|![](./assets/LPH2.png) HSM models LPH2 | ![](./assets/model_mu_03_b.png) HSM model Mu|
+|:-------------------------:|:-------------------------:|
+ 
 The ’core’ models are shown in red and contain genes (cI, cII,cro) and binding sites (bOR, bcII-1) that are involved in regulatory feedback.
 
-The following software components are currently available:
+![](./assets/OP1_01.png)
+**Representational example of one equivalence classes of LPH2 state spaces. There are 6 equivalence classes altogether, the one shown here describes the 'ordinary' lysis and lysogeny cycles 
+corresponding to 16 and 2 state attractors in state space.**
 
 ## HSMModelConverter
 Conversion of human readable HSM model descriptions to a more technical model description format that is used as input for analysis programs.
