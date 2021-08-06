@@ -1,4 +1,4 @@
-module Base_MiniRed where
+module Base_RedEssential where
 
 -- Core part of the lambda phage, simplified
 
