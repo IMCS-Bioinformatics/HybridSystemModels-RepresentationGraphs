@@ -1,4 +1,4 @@
-module Base_MiniBlue where
+module Base_BlueEssential where
 
 ----------------------------------------------
 -- Initialization
