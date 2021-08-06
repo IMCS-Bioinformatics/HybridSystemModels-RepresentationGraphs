@@ -1,7 +1,7 @@
 
 #GENES
 
-N cI cII cro N;
+cI cII cro N;
 
 #BINDINGSITES
 
