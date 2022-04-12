@@ -81,7 +81,7 @@ The provided binaries are Windows 32 bit executable compiled with Borland C++ Bu
 **Usage and examples.** The model files are read from local directory HSM_Models with file name provided as input, e.g.:
 
 ```sh
-HSMSpaceAnalyzer hsm_lambda_oppenheim.txt
+HSMSpaceAnalyzer.exe hsm_lambda_oppenheim.txt
 ```
 
 will use the file *HSM_Models/hsm_lambda_oppenheim.txt* as input. The computed state spaces are stored in directory *HSM_State_Spaces* and in subfolder 
