@@ -1,4 +1,5 @@
 # This program reads a state space file
+# version 0.5
 
 class SpaceDataHolder:
     def __init__(self) -> None:

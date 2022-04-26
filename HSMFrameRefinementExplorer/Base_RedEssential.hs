@@ -3,6 +3,7 @@ module Base_RedEssential where
 -- Core part of the lambda phage, simplified
 
 ----------------------------------------------
+--  version 0.5
 -- Initialization
 
 emptypcond = [] :: [(Integer,Integer)]

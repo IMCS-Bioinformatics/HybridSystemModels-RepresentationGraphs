@@ -9,7 +9,7 @@ bcII{cII} bOR1{cI,cro} bOR2{cI,cro} bOR3{cI,cro} bOL1{cI,cro} bOL2{cI,cro} bOL3{
 
 #REGULATIONS
 
-cI(bOR1,bOR2,bOR3,bcII) = bOR1[cI]*bOR3[] + bOR1[cro]*bOR3[] + bOR2[cI]*bOR3[] + bOR2[cro]*bOR3[] + bcII[cII]*bOR3[]; 
+cI(bOR1,bOR2,bOR3,bcII) = bOR1[cI]*bOR3[] + bOR1[cro]*bOR3[] + bOR2[cI]*bOR3[] + bOR2[cro]*bOR3[] + bcII[cII]*bOR3[];
 cro,cII(bOR1,bOR2) = bOR1[]*bOR2[]; 
 N(bOL1,bOL2) = bOL1[]*bOL2[];
 

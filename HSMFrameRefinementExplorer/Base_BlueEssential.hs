@@ -1,6 +1,7 @@
 module Base_BlueEssential where
 
 ----------------------------------------------
+--  version 0.5
 -- Initialization
 
 emptypcond = [] :: [(Integer,Integer)]
