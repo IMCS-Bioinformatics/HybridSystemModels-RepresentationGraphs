@@ -23,7 +23,7 @@ that are required for model dynamic behaviour to be consistent with known observ
  
 The ’core’ models are shown in red and contain genes (cI, cII,cro) and binding sites (bOR, bcII-1) that are involved in regulatory feedback.
 
-![](./assets/OP1_01.png)
+![](./assets/OP1_01.PNG)
 **Representational example of one equivalence classes of LPH2 state spaces. There are 6 equivalence classes altogether, the one shown here describes the 'ordinary' lysis and lysogeny cycles 
 corresponding to 16 and 2 state attractors in state space.**
 
