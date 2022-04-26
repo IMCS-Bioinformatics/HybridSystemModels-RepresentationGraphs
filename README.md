@@ -18,12 +18,12 @@ that are required for model dynamic behaviour to be consistent with known observ
 **HSM models.** The models currently included here are LPH2 (a lambda phage model based on more recent biological data), HK022 (a model of lambdoid phage HK022, which notably lacks N antitermination gene),
  and model of core genes for Mu phage.
 
-|![](./assets/LPH2.png) HSM models LPH2 | ![](./assets/Mu.png) HSM model Mu|
+|![](./assets/LPH2.png) HSM models LPH2 | ![](./assets/model_mu_03_b.png) HSM model Mu|
 |:-------------------------:|:-------------------------:|
  
 The ’core’ models are shown in red and contain genes (cI, cII,cro) and binding sites (bOR, bcII-1) that are involved in regulatory feedback.
 
-![](./assets/LPH2_01.png)
+![](./assets/OP1_01.png)
 **Representational example of one equivalence classes of LPH2 state spaces. There are 6 equivalence classes altogether, the one shown here describes the 'ordinary' lysis and lysogeny cycles 
 corresponding to 16 and 2 state attractors in state space.**
 
