@@ -120,7 +120,7 @@ The prototype is implemented in Haskell. The main program Statespace.hs contains
 For more details of the implementation and its running possibilities, consult the Frame Refinement Exploration Tool section in this repository.
 The results of running the algorithm with different model parameters are in the Results section. 
 
-##HSMTransitionGraphs
+## HSMTransitionGraphs
 Construction of state transition graphs for models defined in Prolog syntax.
 
 Currently includes HSM models of myeloid cell differentiation. Each of the included Prolog files defines a particular version of the model and conatins also rules (instructions) for generation of its state space. The Prolog interpreter for the models outputs their state spaces as simple text files, which can be further analysed by other tools. The programs are tested and compatible with SWI-Prolog (version 7.4.2). 
