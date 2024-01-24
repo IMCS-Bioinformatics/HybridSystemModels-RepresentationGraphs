@@ -128,3 +128,6 @@ Currently includes HSM models of myeloid cell differentiation. Each of the inclu
  
 ### Contact
 This software is developed at the Bioinformatics group of the [Institute of Mathematics and Computer science](https://lumii.lv/). For personal communications, please contact Juris Vīksna.
+
+### Acknowledgements
+This research was supported by the Latvian Council of Science Project No. lzp-2019/1-0432.
