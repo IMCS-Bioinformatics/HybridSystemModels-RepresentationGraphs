@@ -41,6 +41,8 @@ The following software components are currently available:
 
 **HSMFrameRefinementExplorer** – construction and analysis of universal state space for HSM model using an iterative model frame refinement approach.
 
+**HSMTransitionGraphs** – construction of state transition graphs for models defined in Prolog syntax (currently includes models of myeloid cell differentiation).
+
 In addition there is a visualisation component based on in-house legacy software modules. Unfortunately due to various compatibility problems inclusion of this visualisation part in open source 
 distributions is not possible. In case it can be useful the visualisation is available 'as is' from the following website: http://susurs.mii.lu.lv/HSMVisualizer/.
 ## HSMModelConverter
@@ -117,6 +119,12 @@ The strongly connected components in the factor graph are computed, as well.
 The prototype is implemented in Haskell. The main program Statespace.hs contains the algorithm implementation. The data model is also described as a collection of functions and is placed in auxiliary files to be imported during the main program execution.
 For more details of the implementation and its running possibilities, consult the Frame Refinement Exploration Tool section in this repository.
 The results of running the algorithm with different model parameters are in the Results section. 
+
+##HSMTransitionGraphs
+Construction of state transition graphs for models defined in Prolog syntax.
+
+Currently includes HSM models of myeloid cell differentiation. Each of the included Prolog files defines a particular version of the model and conatins also rules (instructions) for generation of its state space. The Prolog interpreter for the models outputs their state spaces as simple text files, which can be further analysed by other tools. The programs are tested and compatible with SWI-Prolog (version 7.4.2). 
+   
  
 ### Contact
 This software is developed at the Bioinformatics group of the [Institute of Mathematics and Computer science](https://lumii.lv/). For personal communications, please contact Juris Vīksna.

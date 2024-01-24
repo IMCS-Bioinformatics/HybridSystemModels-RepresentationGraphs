@@ -1,5 +1,5 @@
 # This program reads a folder of state space files and prints their statistical information
-# version 0.5
+# version 0.9
 
 import sys
 from pathlib import Path
