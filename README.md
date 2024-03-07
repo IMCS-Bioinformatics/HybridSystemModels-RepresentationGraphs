@@ -123,11 +123,11 @@ The results of running the algorithm with different model parameters are in the 
 ## HSMTransitionGraphs
 Construction of state transition graphs for models defined in Prolog syntax.
 
-Currently includes HSM models of myeloid cell differentiation. Each of the included Prolog files defines a particular version of the model and conatins also rules (instructions) for generation of its state space. The Prolog interpreter for the models outputs their state spaces as simple text files, which can be further analysed by other tools. The programs are tested and compatible with SWI-Prolog (version 7.4.2). 
+Currently includes HSM models of myeloid cell differentiation. Each of the included Prolog files defines a particular version of the model and contains also rules (instructions) for generation of its state space. The Prolog interpreter for the models outputs their state spaces as simple text files, which can be further analysed by other tools. The programs are tested and compatible with SWI-Prolog (version 7.4.2). 
    
  
 ### Contact
-This software is developed at the Bioinformatics group of the [Institute of Mathematics and Computer science](https://lumii.lv/). For personal communications, please contact Juris Vīksna.
+This software is developed at the Bioinformatics group of the [Institute of Mathematics and Computer science](https://lumii.lv/). For personal communications, please contact Juris Viksna.
 
 ### Acknowledgements
 This research was supported by the Latvian Council of Science Project No. lzp-2019/1-0432.
