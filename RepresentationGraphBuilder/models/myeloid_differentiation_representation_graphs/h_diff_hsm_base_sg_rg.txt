@@ -1,0 +1,99 @@
+####### Representation graph #######
+
+### Input file: in/h_diff_hsm_base_sg.txt
+### Output file: out/h_diff_hsm_base_sg_rg.txt
+### Included only part reachable from INI state: True
+
+### Number of nodes: 9
+### Number of attractor nodes: 4
+### Number of switching nodes: 5
+### Number of other nodes: 0
+
+# List of attractor nodes: id genes binding_sites | int  str str
+386 00110000010 00110000010 
+452 00111000100 00111000100 
+537 01000011001 01000011001 
+553 01000101001 01000101001 
+
+# List of switching nodes: id genes binding_sites | int  str str
+384 00110000000 00110000000 
+1408 10110000000 10110000000 
+1414 10110000110 10110000110 
+1476 10111000100 10111000100 
+1860 11101000100 11101000100 
+
+# List of other nodes: id genes binding_sites | int  str str
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+384 386 9 Gfi-1 +
+384 452 4 EgrNab +
+1408 384 0 GATA-2 -
+1408 1476 4 EgrNab +
+1408 1414 9 Gfi-1 +
+1408 1860 3 PU.1 -
+1414 386 0 GATA-2 -
+1414 1860 3 PU.1 -
+1476 452 0 GATA-2 -
+1476 1860 3 PU.1 -
+1860 553 5 EKLF +
+1860 537 6 Fli-1 +
+
+####### Attractor graphs #######
+
+##### Number of attractors: 
+4
+
+### Attractor region 1 
+
+# Attractor id | int
+537
+
+# Number of states | int
+1
+
+# List of states: id genes binding_sites | int str str
+452 00111000100 00111000100 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+
+### Attractor region 2 
+
+# Attractor id | int
+537
+
+# Number of states | int
+1
+
+# List of states: id genes binding_sites | int str str
+386 00110000010 00110000010 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+
+### Attractor region 3 
+
+# Attractor id | int
+537
+
+# Number of states | int
+1
+
+# List of states: id genes binding_sites | int str str
+553 01000101001 01000101001 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+
+### Attractor region 4 
+
+# Attractor id | int
+537
+
+# Number of states | int
+1
+
+# List of states: id genes binding_sites | int str str
+537 01000011001 01000011001 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+
+
+####### End #######
