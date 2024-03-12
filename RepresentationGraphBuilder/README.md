@@ -1,5 +1,5 @@
 # RepresentationGraphBuilder
-Python program modules for building Representation Graphs for HSM state space graphs 
+Python program modules for building Representation Graphs for HSM state spaces
 
 *** to be completed ***
    
