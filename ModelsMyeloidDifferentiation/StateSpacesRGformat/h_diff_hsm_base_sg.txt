@@ -6,8 +6,8 @@
 11
 # number of states | int
 2048
-# 0 state id | int
-0
+# INI state id | int
+1408
 # gene names | str[]
 GATA-2 GATA-1 C/EBPa PU.1 EgrNab EKLF Fli-1 SCL cJun Gfi-1 FOG-1
 # binding site names | str[]
@@ -15,7 +15,7 @@ bGATA-2 bGATA-1 bC/EBPa bPU.1 bEgrNab bEKLF bFli-1 bSCL bcJun bGfi-1 bFOG-1
 
 # list of states and transitions
 # state attributes: id gene_states bs_states type edge_n | int str str int int
-# transition attributes: dest_id gene_id [+|-] | int int def
+# transition attributes: dest_id gene_id {+,-} | int int def
 
 0 00000000000 00000000000  0 11
 0 0 - 0 1 - 0 2 - 0 3 - 0 4 - 0 5 - 0 6 - 0 7 - 0 8 - 0 9 - 0 10 -

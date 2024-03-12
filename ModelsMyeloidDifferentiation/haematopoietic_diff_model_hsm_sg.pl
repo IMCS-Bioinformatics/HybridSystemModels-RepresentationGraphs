@@ -1,8 +1,7 @@
-fname('h_diff_graph_simple.txt').
-fname_a('h_diff_graph_hsm.txt').
-fname_a2('h_diff_graph_complete.txt').
-fname_rgb('h_diff_hsm_base_sg.txt').
-fname_rgv('h_diff_hsm_variant_sg.txt').
+fname('t_h_dif_08_states.txt').
+fname_a('t_h_dif_08_states_asynch.txt').
+fname_rg('t_h_dif_08_sg.txt').
+fname_a2('t_h_dif_08_states_asynch_all.txt').
 
 % heamatopoietic cell differentiation model
 
@@ -188,7 +187,7 @@ do_all_a:-fname_a(Fname),tell(Fname),gen_graph_a,told.
 do_all_a2:-fname_a2(Fname),tell(Fname),gen_graph_a2,told.	
 
 % write the output in syntax compatible with representation graph generation input format
-do_rg:-fname_rgb(Fname),tell(Fname),bagof(X,gen_graph_a_ret(X),L),length(L,Len),write_rg_header(Len),write_rg_list(L),told.   	
+do_rg:-fname_rg(Fname),tell(Fname),bagof(X,gen_graph_a_ret(X),L),length(L,Len),write_rg_header(Len),write_rg_list(L),told.   	
 
 % write file header in representation representation graph generation input format
 write_rg_header(Len):-
@@ -202,15 +201,15 @@ write_rg_header(Len):-
 	writeln('# number of states | int'), 
 	arities([A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11]),scount(Count,[A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11]),
 	writeln(Count),
-	writeln('# 0 state id | int'), % define 0 as initial state
-	writeln(0),
+	writeln('# INI state id | int'), % define 0 as initial state
+	writeln(1408), % presumed initial state for which the model can be considered as valid
 	writeln('# gene names | str[]'),
 	writeln('GATA-2 GATA-1 C/EBPa PU.1 EgrNab EKLF Fli-1 SCL cJun Gfi-1 FOG-1'), % currently constant
 	writeln('# binding site names | str[]'),
 	writeln('bGATA-2 bGATA-1 bC/EBPa bPU.1 bEgrNab bEKLF bFli-1 bSCL bcJun bGfi-1 bFOG-1'),nl, % currently constant
 	writeln('# list of states and transitions'), 
 	writeln('# state attributes: id gene_states bs_states type edge_n | int str str int int'),
-	writeln('# transition attributes: dest_id gene_id [+|-] | int int def'),nl.
+	writeln('# transition attributes: dest_id gene_id {+,-} | int int def'),nl.
 
 % write transition list in representation representation graph generation input format
 % currently hardcoded assuming 11 sequential transition batches for each of the states
@@ -275,7 +274,7 @@ eq(R,++(X,Y)):-eq(X1,X),eq(Y1,Y),eq(R,++(X1,Y1)).
 :-op(500,yfx,++).
 :-op(400,yfx,&&).
 
-
+do_rg.
 
 %Gata_2 = f[Gata_2,Gata_1,Fog_1,Pu_1]
 gata_2(R,[Gata_2,Gata_1,Fog_1,Pu_1]):-R eq Gata_2 && \\(Gata_1 && Fog_1) && \\(Pu_1).
