@@ -1,0 +1,90 @@
+####### Representation graph #######
+
+### Input file: inlambda/state_space_rg_000200.txt
+### Output file: outlambda/state_space_rg_000200_rg.txt
+### Included only part reachable from INI state: False
+
+### Number of nodes: 7
+### Number of attractor nodes: 2
+### Number of switching nodes: 2
+### Number of other nodes: 3
+
+# List of attractor nodes: id genes binding_sites | int  str str
+2720 00000000000 00000101010100000 
+49477 00000000010 01100000101000101 
+
+# List of switching nodes: id genes binding_sites | int  str str
+2145 00000000000 00000100001100001 
+127009 11100110011 11111000000100001 
+
+# List of other nodes: id genes binding_sites | int  str str
+128666 00000000011 11111011010011010 
+129434 00000000011 11111100110011010 
+129626 00000000011 11111101001011010 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+2145 49477 0 cI -
+2145 2720 2 cro -
+127009 49477 2 cro +
+127009 2720 0 cI +
+128666 2145 3 Q -
+129434 2145 2 cro -
+129626 2145 1 cII -
+
+####### Attractor graphs #######
+
+##### Number of attractors: 
+2
+
+### Attractor region 1 
+
+# Attractor id | int
+1025
+
+# Number of states | int
+2
+
+# List of states: id genes binding_sites | int str str
+2720 00000000000 00000101010100000 
+2592 10000000000 00000101000100000 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+2720 2592 0 cI -
+2592 2720 0 cI +
+
+### Attractor region 2 
+
+# Attractor id | int
+1025
+
+# Number of states | int
+8
+
+# List of states: id genes binding_sites | int str str
+114757 01100110010 11100000001000101 
+115013 00000000010 11100000101000101 
+69 01100110000 00000000001000101 
+325 00000000000 00000000101000101 
+49221 01100110010 01100000001000101 
+49477 00000000010 01100000101000101 
+16453 01100110000 00100000001000101 
+16709 00000000000 00100000101000101 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+114757 115013 2 cro +
+115013 49477 1 cII -
+115013 114757 2 cro -
+69 16453 1 cII +
+69 325 2 cro +
+325 69 2 cro -
+49221 114757 1 cII +
+49221 49477 2 cro +
+49477 16709 1 cII -
+49477 49221 2 cro -
+16453 49221 1 cII +
+16453 16709 2 cro +
+16709 325 1 cII -
+16709 16453 2 cro -
+
+
+####### End #######

@@ -6,7 +6,7 @@ Python program modules for building Representation Graphs for HSM state spaces
  
 Last update notes: 
 
-Version 0.0.1, 12.03.2024
+Version 1.0.1, 15.03.2024
 
 
    

@@ -1,0 +1,106 @@
+####### Representation graph #######
+
+### Input file: inhk022/state_space_rg_000328.txt
+### Output file: outhk022/state_space_rg_000328_rg.txt
+### Included only part reachable from INI state: False
+
+### Number of nodes: 7
+### Number of attractor nodes: 2
+### Number of switching nodes: 2
+### Number of other nodes: 3
+
+# List of attractor nodes: id genes binding_sites | int  str str
+2730 0000000000 000101010101010 
+12609 0000001111 011000101000001 
+
+# List of switching nodes: id genes binding_sites | int  str str
+2113 0000001100 000100001000001 
+28673 1111111111 111000000000001 
+
+# List of other nodes: id genes binding_sites | int  str str
+0 0111111100 000000000000000 
+30105 0000000011 111010110011001 
+30357 0000000011 111011010010101 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+0 28673 2 cro +
+2113 12609 0 cI -
+2113 2730 2 cro -
+28673 12609 2 cro +
+28673 2730 0 cI +
+30105 2113 3 Q -
+30357 2113 1 cII -
+
+####### Attractor graphs #######
+
+##### Number of attractors: 
+2
+
+### Attractor region 1 
+
+# Attractor id | int
+2
+
+# Number of states | int
+2
+
+# List of states: id genes binding_sites | int str str
+2730 0000000000 000101010101010 
+2602 1000000000 000101000101010 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+2730 2602 0 cI -
+2602 2730 0 cI +
+
+### Attractor region 2 
+
+# Attractor id | int
+2
+
+# Number of states | int
+12
+
+# List of states: id genes binding_sites | int str str
+65 0111111100 000000001000001 
+321 0000001100 000000101000001 
+12353 0111111111 011000001000001 
+12609 0000001111 011000101000001 
+8257 0111111110 010000001000001 
+8513 0000001110 010000101000001 
+28737 0111111111 111000001000001 
+28993 0000001111 111000101000001 
+4161 0111111101 001000001000001 
+4417 0000001101 001000101000001 
+24641 0111111110 110000001000001 
+24897 0000001110 110000101000001 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+65 8257 1 cII +
+65 321 2 cro +
+65 4161 3 Q +
+321 65 2 cro -
+12353 28737 1 cII +
+12353 12609 2 cro +
+12609 4417 1 cII -
+12609 12353 2 cro -
+12609 8513 3 Q -
+8257 24641 1 cII +
+8257 8513 2 cro +
+8257 12353 3 Q +
+8513 321 1 cII -
+8513 8257 2 cro -
+28737 28993 2 cro +
+28993 12609 1 cII -
+28993 28737 2 cro -
+28993 24897 3 Q -
+4161 12353 1 cII +
+4161 4417 2 cro +
+4417 4161 2 cro -
+4417 321 3 Q -
+24641 24897 2 cro +
+24641 28737 3 Q +
+24897 8513 1 cII -
+24897 24641 2 cro -
+
+
+####### End #######

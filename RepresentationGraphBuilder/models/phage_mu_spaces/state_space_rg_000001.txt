@@ -1,0 +1,55 @@
+### Mu variant No 000001 model state graph ###
+#
+# number of genes | int
+3
+# number of binding sites | int
+5
+# number of states | int
+12
+# INI state id | int
+0
+# gene names | str[]
+ner c A 
+# binding site names | str[] 
+bNr{ner} bNL{ner} bO1{c} bO2{c} bO3{c} 
+
+# list of states and transitions
+# state attributes: id gene_states bs_states type edge_n | int str str int int
+# transition attributes: dest_id gene_id {+,-} | int int def
+
+0  110 00000 0 2
+16 0 + 4 1 + 
+
+4  110 00100 0 2
+20 0 + 6 1 + 
+
+6  010 00110 1 1
+7 1 + 
+
+7  000 00111 1 1
+6 1 - 
+
+16  010 10000 0 2
+0 0 - 20 1 + 
+
+20  010 10100 0 2
+4 0 - 22 1 + 
+
+22  010 10110 0 2
+6 0 - 23 1 + 
+
+23  000 10111 0 2
+7 0 - 22 1 - 
+
+24  000 11000 0 1
+16 0 - 
+
+28  000 11100 0 2
+20 0 - 24 1 - 
+
+30  000 11110 0 2
+22 0 - 28 1 - 
+
+31  000 11111 0 2
+23 0 - 30 1 - 
+
