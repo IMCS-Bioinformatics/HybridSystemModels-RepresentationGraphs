@@ -1,0 +1,68 @@
+####### Representation graph #######
+
+### Input file: inmu/state_space_sg_000002.txt
+### Output file: outmu/state_space_sg_000002_rg.txt
+### Included only part reachable from INI state: False
+
+### Number of nodes: 5
+### Number of attractor nodes: 2
+### Number of switching nodes: 2
+### Number of other nodes: 1
+
+# List of attractor nodes: id genes binding_sites | int  str str
+6 010 00110 
+24 000 11000 
+
+# List of switching nodes: id genes binding_sites | int  str str
+4 110 00100 
+14 000 01110 
+
+# List of other nodes: id genes binding_sites | int  str str
+31 000 11111 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+4 6 1 c +
+4 24 0 ner +
+14 6 0 ner -
+14 24 1 c -
+31 14 0 ner -
+
+####### Attractor graphs #######
+
+##### Number of attractors: 
+2
+
+### Attractor region 1 
+
+# Attractor id | int
+2
+
+# Number of states | int
+2
+
+# List of states: id genes binding_sites | int str str
+24 000 11000 
+8 101 01000 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+24 8 0 ner -
+8 24 0 ner +
+
+### Attractor region 2 
+
+# Attractor id | int
+2
+
+# Number of states | int
+2
+
+# List of states: id genes binding_sites | int str str
+6 010 00110 
+7 000 00111 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+6 7 1 c +
+7 6 1 c -
+
+
+####### End #######

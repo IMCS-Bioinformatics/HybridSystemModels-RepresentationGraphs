@@ -9,7 +9,7 @@
 # numpy-1.24.4, netwrokx-3.1, igraph-0.11.4, N2G-0.3.3
 # Contributors: 
 # Institute of Mathematics and Computer Science, University of Latvia
-# v_1.0.15, 15.03.2024
+# v_1.0.17, 18.03.2024
 # Distributed under GPLv3 license
 # Copyright (c) 2024 Juris Viksna
 ################################################################################
@@ -263,7 +263,7 @@ for v in Lloop_nodes:
 		GX.remove_edge(v,v)
 
 # contract attractors to single nodes
-# do not bother withg attributes here - in attractor region should be the same for all vertices
+# do not bother with attributes here - in attractor region should be the same for all vertices
 for i in range(len(SCC_list)): 
 	attr = SCC_list[i]
 	# find all pairs of nodes within attractor (this could be done more efficiently, but attractors are really small)
@@ -344,11 +344,9 @@ while not_completed:
 					SGraph[s].cini = 1
 					SGraph[d].cini = 1	
 				SGraph[s].contr = 1
-				nx.contracted_nodes(GX,d,s,self_loops=False, copy=False) # contract s to d - keep swiching state intact
+				nx.contracted_nodes(GX,d,s,self_loops=False, copy=False) # contract s to d - keep switching state intact
 				#print("contr: ",IDs[d],IDs[s]," ee")
 				not_completed = True
-
-				
 
 # reprocess grey nodes and join into a single node groups with the same destination vertices
 Lall_edges = list(GX.edges) # mark the full node list 
@@ -365,6 +363,59 @@ for (s,d) in Lall_edges:
 					nx.contracted_nodes(GX,s,p,self_loops=False, copy=False) # contract p to s 
 					#print("join: ",IDs[s],IDs[p]," ff")
 
+# reprocess switching states and join loose states with identical attractors and edge labels to them
+# not the most efficient implementation, but the expected number of such states is small 
+# at this stage there should be no greys between switching states and attractors
+Lall_nodes = list(GX.nodes) # mark the full node list 
+Ls_nodes = []
+for v in Lall_nodes:
+	if SGraph[v].dec != -1:
+		pr_list = list(GX.predecessors(v))
+		is_loose = True
+		for p in pr_list:
+			if SGraph[p].dec != -1:
+				is_loose = False # set to false if predecessor is decision node
+		if is_loose:
+			Ls_nodes.append(v) # append to list of loos switching states
+#print(Ls_nodes)
+for v1 in Ls_nodes:
+	for v2 in Ls_nodes:
+		# recheck that both nodes are still available after contractions 
+		if v1 in GX.nodes and v2 in GX.nodes and v1 != v2 and SGraph[v1].reach == SGraph[v2].reach and set(GX.neighbors(v1)) == set(GX.neighbors(v2)): # two different nodes to same attractors found 
+			rlist = list(GX.neighbors(v1)) # list of reachable attractors
+			# check edge labels and proceed if all of them match 
+			rmatch = True
+			for a in rlist:
+				amatch = False
+				if (v1,a) in GX.edges and (v2,a) in GX.edges and GX[v1][a]['l'] == GX[v2][a]['l'] and GX[v1][a]['t'] == GX[v2][a]['t']: # check for identically labelled edges for attractors
+					amatch = True
+				if not amatch:
+					rmatch = False # set to False if any check fails 
+				#if (v1,a) in GX.edges and (v2,a) in GX.edges:
+				#	print(v1,v2,a,GX[v1][a]['l'],GX[v2][a]['l'],GX[v1][a]['t'],GX[v2][a]['t'],amatch,rmatch)
+			# if matching condition still true then join
+			if rmatch: #  and v1 in GX.nodes and v2 in GX.nodes: # recheck node existence, not certain that networkx always contracts pairs in the direction asked
+				if SGraph[v1].cini == 1 or SGraph[v2].cini == 1: # mark as contraction from INI state
+					SGraph[v1].cini = 1
+					SGraph[v2].cini = 1	
+				SGraph[v2].contr = 1	
+				#print("contr",v1,v2)
+				nx.contracted_nodes(GX,v1,v2,self_loops=False, copy=False) # contract v2 to v1 
+			
+# reprocess grey nodes and join into a single node groups with the same destination vertices
+# for simplicity just repeat this step for the 2nd time after final joining of switching states 
+Lall_edges = list(GX.edges) # mark the full node list 
+for (s,d) in Lall_edges:
+	if (s,d) in GX.edges and SGraph[s].grey == 1: # edge is still available and source is grey edge
+		pr_list = list(GX.predecessors(d)) # predecessors of destination vertex
+		for p in pr_list:
+			if p!=s and p in GX.nodes and SGraph[p].grey == 1 and set(GX.neighbors(s)) == set(GX.neighbors(p)): # a distinct predecessor that is also grey and with the same reachability modes
+				if GX[s][d]['l'] == GX[p][d]['l'] and GX[s][d]['t'] == GX[p][d]['t']: # and transition labels to d are also the same, then contract
+					if SGraph[s].cini == 1 or SGraph[d].cini == 1: # mark as contraction from INI state
+						SGraph[s].cini = 1
+						SGraph[d].cini = 1	
+					SGraph[p].contr = 1	
+					nx.contracted_nodes(GX,s,p,self_loops=False, copy=False) # contract p to s 
 				
 ################################################################################
 # Some test printouts - uncomment as needed
@@ -431,7 +482,8 @@ if args['fname_outdraw']:
 		if SGraph[v].dec != -1: # add switching condition
 			dec_colour = '#D80073' #default
 			if SGraph[v].cini != - 1:  # state includes INI position
-				dec_colour = '#FADA5E'
+				#dec_colour = '#FF89C8' # lighter shade for INI state containers
+				dec_colour = '#FADA5E' # designated colour for all INI containers, including switching modes
 			diagram.add_node(str(vid),label=str(vid),attributes={'Shape': {'type': 'diamond'}, 'NodeLabel' : {'alignment' : 'center', 'autoSizePolicy' : 'content', 'fontFamily' : 'Dialog', 'fontSize' : '20', 'fontStyle' : 'bold'}, 'Fill' : {'color': dec_colour}, 'BorderStyle' : {'width' : '3.0'}}) 
 		if SGraph[v].grey != -1: # add grey
 			grey_colour = '#E0E0E0' #default

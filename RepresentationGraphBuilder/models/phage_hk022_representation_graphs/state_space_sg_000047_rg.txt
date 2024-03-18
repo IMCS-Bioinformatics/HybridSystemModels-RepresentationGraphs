@@ -1,0 +1,104 @@
+####### Representation graph #######
+
+### Input file: inhk022/state_space_sg_000047.txt
+### Output file: outhk022/state_space_sg_000047_rg.txt
+### Included only part reachable from INI state: False
+
+### Number of nodes: 6
+### Number of attractor nodes: 2
+### Number of switching nodes: 2
+### Number of other nodes: 2
+
+# List of attractor nodes: id genes binding_sites | int  str str
+69 0111110000 000000001000101 
+2720 0000000000 000101010100000 
+
+# List of switching nodes: id genes binding_sites | int  str str
+2113 0000001100 000100001000001 
+28673 1111111111 111000000000001 
+
+# List of other nodes: id genes binding_sites | int  str str
+0 0111111100 000000000000000 
+30362 0000000011 111011010011010 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+0 28673 2 cro +
+2113 69 0 cI -
+2113 2720 2 cro -
+28673 69 2 cro +
+28673 2720 0 cI +
+30362 2113 1 cII -
+
+####### Attractor graphs #######
+
+##### Number of attractors: 
+2
+
+### Attractor region 1 
+
+# Attractor id | int
+258
+
+# Number of states | int
+2
+
+# List of states: id genes binding_sites | int str str
+2720 0000000000 000101010100000 
+2592 1000000000 000101000100000 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+2720 2592 0 cI -
+2592 2720 0 cI +
+
+### Attractor region 2 
+
+# Attractor id | int
+258
+
+# Number of states | int
+12
+
+# List of states: id genes binding_sites | int str str
+12357 0111110011 011000001000101 
+69 0111110000 000000001000101 
+325 0000000000 000000101000101 
+12613 0000000011 011000101000101 
+28741 0111110011 111000001000101 
+8261 0111110010 010000001000101 
+8517 0000000010 010000101000101 
+28997 0000000011 111000101000101 
+24645 0111110010 110000001000101 
+24901 0000000010 110000101000101 
+4421 0000000001 001000101000101 
+4165 0111110001 001000001000101 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+12357 28741 1 cII +
+12357 12613 2 cro +
+69 8261 1 cII +
+69 325 2 cro +
+69 4165 3 Q +
+325 69 2 cro -
+12613 4421 1 cII -
+12613 12357 2 cro -
+12613 8517 3 Q -
+28741 28997 2 cro +
+8261 24645 1 cII +
+8261 8517 2 cro +
+8261 12357 3 Q +
+8517 325 1 cII -
+8517 8261 2 cro -
+28997 12613 1 cII -
+28997 28741 2 cro -
+28997 24901 3 Q -
+24645 24901 2 cro +
+24645 28741 3 Q +
+24901 8517 1 cII -
+24901 24645 2 cro -
+4421 4165 2 cro -
+4421 325 3 Q -
+4165 12357 1 cII +
+4165 4421 2 cro +
+
+
+####### End #######

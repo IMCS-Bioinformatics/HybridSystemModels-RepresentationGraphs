@@ -1,0 +1,118 @@
+####### Representation graph #######
+
+### Input file: inlambda/state_space_sg_000091.txt
+### Output file: outlambda/state_space_sg_000091_rg.txt
+### Included only part reachable from INI state: False
+
+### Number of nodes: 6
+### Number of attractor nodes: 2
+### Number of switching nodes: 2
+### Number of other nodes: 2
+
+# List of attractor nodes: id genes binding_sites | int  str str
+2720 00000000000 00000101010100000 
+127041 01101111111 11111000001000001 
+
+# List of switching nodes: id genes binding_sites | int  str str
+118785 11101111110 11101000000000001 
+120897 00001001110 11101100001000001 
+
+# List of other nodes: id genes binding_sites | int  str str
+128346 00000000011 11111010101011010 
+128598 00000000011 11111011001010110 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+118785 127041 2 cro +
+118785 2720 0 cI +
+120897 127041 0 cI -
+120897 2720 2 cro -
+128346 120897 4 N -
+128598 120897 1 cII -
+
+####### Attractor graphs #######
+
+##### Number of attractors: 
+2
+
+### Attractor region 1 
+
+# Attractor id | int
+960
+
+# Number of states | int
+2
+
+# List of states: id genes binding_sites | int str str
+2720 00000000000 00000101010100000 
+2592 10000000000 00000101000100000 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+2720 2592 0 cI -
+2592 2720 0 cI +
+
+### Attractor region 2 
+
+# Attractor id | int
+960
+
+# Number of states | int
+16
+
+# List of states: id genes binding_sites | int str str
+110913 00011001111 11011000101000001 
+45121 01111111111 01011000001000001 
+45377 00011001111 01011000101000001 
+12353 01111111101 00011000001000001 
+12609 00011001101 00011000101000001 
+118849 01101111110 11101000001000001 
+119105 00001001110 11101000101000001 
+102465 01111111110 11001000001000001 
+102721 00011001110 11001000101000001 
+36929 01111111110 01001000001000001 
+37185 00011001110 01001000101000001 
+4161 01111111100 00001000001000001 
+4417 00011001100 00001000101000001 
+127041 01101111111 11111000001000001 
+127297 00001001111 11111000101000001 
+110657 01111111111 11011000001000001 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+110913 45377 1 cII -
+110913 110657 2 cro -
+45121 110657 1 cII +
+45121 45377 2 cro +
+45377 12609 1 cII -
+45377 45121 2 cro -
+12353 45121 1 cII +
+12353 12609 2 cro +
+12609 12353 2 cro -
+118849 119105 2 cro +
+119105 102721 1 cII -
+119105 118849 2 cro -
+102465 118849 1 cII +
+102465 102721 2 cro +
+102465 110657 3 Q +
+102721 37185 1 cII -
+102721 102465 2 cro -
+102721 110913 3 Q +
+36929 102465 1 cII +
+36929 37185 2 cro +
+36929 45121 3 Q +
+37185 4417 1 cII -
+37185 36929 2 cro -
+37185 45377 3 Q +
+4161 36929 1 cII +
+4161 4417 2 cro +
+4161 12353 3 Q +
+4417 4161 2 cro -
+4417 12609 3 Q +
+127041 127297 2 cro +
+127041 118849 3 Q -
+127297 110913 1 cII -
+127297 127041 2 cro -
+127297 119105 3 Q -
+110657 127041 1 cII +
+110657 110913 2 cro +
+
+
+####### End #######

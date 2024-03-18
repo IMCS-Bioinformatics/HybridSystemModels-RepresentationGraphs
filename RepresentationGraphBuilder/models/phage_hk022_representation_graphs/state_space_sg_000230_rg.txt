@@ -1,0 +1,106 @@
+####### Representation graph #######
+
+### Input file: inhk022/state_space_sg_000230.txt
+### Output file: outhk022/state_space_sg_000230_rg.txt
+### Included only part reachable from INI state: False
+
+### Number of nodes: 7
+### Number of attractor nodes: 2
+### Number of switching nodes: 2
+### Number of other nodes: 3
+
+# List of attractor nodes: id genes binding_sites | int  str str
+2602 1000000000 000101000101010 
+12608 0000001111 011000101000000 
+
+# List of switching nodes: id genes binding_sites | int  str str
+2112 0000001100 000100001000000 
+28672 1111111111 111000000000000 
+
+# List of other nodes: id genes binding_sites | int  str str
+30102 0000000011 111010110010110 
+30361 0000000011 111011010011001 
+31125 0000000011 111100110010101 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+2112 12608 0 cI -
+2112 2602 2 cro -
+28672 12608 2 cro +
+28672 2602 0 cI +
+30102 2112 1 cII -
+30361 2112 0 cI -
+31125 2112 2 cro -
+
+####### Attractor graphs #######
+
+##### Number of attractors: 
+2
+
+### Attractor region 1 
+
+# Attractor id | int
+1
+
+# Number of states | int
+2
+
+# List of states: id genes binding_sites | int str str
+2602 1000000000 000101000101010 
+2730 0000000000 000101010101010 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+2602 2730 0 cI +
+2730 2602 0 cI -
+
+### Attractor region 2 
+
+# Attractor id | int
+1
+
+# Number of states | int
+12
+
+# List of states: id genes binding_sites | int str str
+64 0111111100 000000001000000 
+320 0000001100 000000101000000 
+12352 0111111111 011000001000000 
+12608 0000001111 011000101000000 
+8256 0111111110 010000001000000 
+8512 0000001110 010000101000000 
+28736 0111111111 111000001000000 
+28992 0000001111 111000101000000 
+4160 0111111101 001000001000000 
+4416 0000001101 001000101000000 
+24640 0111111110 110000001000000 
+24896 0000001110 110000101000000 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+64 8256 1 cII +
+64 320 2 cro +
+64 4160 3 Q +
+320 64 2 cro -
+12352 28736 1 cII +
+12352 12608 2 cro +
+12608 4416 1 cII -
+12608 12352 2 cro -
+12608 8512 3 Q -
+8256 24640 1 cII +
+8256 8512 2 cro +
+8256 12352 3 Q +
+8512 320 1 cII -
+8512 8256 2 cro -
+28736 28992 2 cro +
+28992 12608 1 cII -
+28992 28736 2 cro -
+28992 24896 3 Q -
+4160 12352 1 cII +
+4160 4416 2 cro +
+4416 4160 2 cro -
+4416 320 3 Q -
+24640 24896 2 cro +
+24640 28736 3 Q +
+24896 8512 1 cII -
+24896 24640 2 cro -
+
+
+####### End #######

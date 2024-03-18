@@ -1,0 +1,88 @@
+####### Representation graph #######
+
+### Input file: inlambda/state_space_sg_000893.txt
+### Output file: outlambda/state_space_sg_000893_rg.txt
+### Included only part reachable from INI state: False
+
+### Number of nodes: 6
+### Number of attractor nodes: 2
+### Number of switching nodes: 2
+### Number of other nodes: 2
+
+# List of attractor nodes: id genes binding_sites | int  str str
+2602 10000000000 00000101000101010 
+114773 01100110010 11100000001010101 
+
+# List of switching nodes: id genes binding_sites | int  str str
+2145 00000000000 00000100001100001 
+127009 11100110011 11111000000100001 
+
+# List of other nodes: id genes binding_sites | int  str str
+128425 00000000011 11111010110101001 
+128665 00000000011 11111011010011001 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+2145 114773 0 cI -
+2145 2602 2 cro -
+127009 114773 2 cro +
+127009 2602 0 cI +
+128425 2145 3 Q -
+128665 2145 4 N -
+
+####### Attractor graphs #######
+
+##### Number of attractors: 
+2
+
+### Attractor region 1 
+
+# Attractor id | int
+705
+
+# Number of states | int
+2
+
+# List of states: id genes binding_sites | int str str
+2602 10000000000 00000101000101010 
+2730 00000000000 00000101010101010 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+2602 2730 0 cI +
+2730 2602 0 cI -
+
+### Attractor region 2 
+
+# Attractor id | int
+705
+
+# Number of states | int
+8
+
+# List of states: id genes binding_sites | int str str
+49493 00000000010 01100000101010101 
+16469 01100110000 00100000001010101 
+16725 00000000000 00100000101010101 
+85 01100110000 00000000001010101 
+341 00000000000 00000000101010101 
+114773 01100110010 11100000001010101 
+115029 00000000010 11100000101010101 
+49237 01100110010 01100000001010101 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+49493 16725 1 cII -
+49493 49237 2 cro -
+16469 49237 1 cII +
+16469 16725 2 cro +
+16725 341 1 cII -
+16725 16469 2 cro -
+85 16469 1 cII +
+85 341 2 cro +
+341 85 2 cro -
+114773 115029 2 cro +
+115029 49493 1 cII -
+115029 114773 2 cro -
+49237 114773 1 cII +
+49237 49493 2 cro +
+
+
+####### End #######

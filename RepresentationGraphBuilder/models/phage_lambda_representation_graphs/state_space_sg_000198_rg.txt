@@ -1,0 +1,84 @@
+####### Representation graph #######
+
+### Input file: inlambda/state_space_sg_000198.txt
+### Output file: outlambda/state_space_sg_000198_rg.txt
+### Included only part reachable from INI state: False
+
+### Number of nodes: 4
+### Number of attractor nodes: 2
+### Number of switching nodes: 2
+### Number of other nodes: 0
+
+# List of attractor nodes: id genes binding_sites | int  str str
+2592 10000000000 00000101000100000 
+49221 01100110010 01100000001000101 
+
+# List of switching nodes: id genes binding_sites | int  str str
+125024 00000000011 11110100001100000 
+127008 11100110011 11111000000100000 
+
+# List of other nodes: id genes binding_sites | int  str str
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+125024 49221 0 cI -
+125024 2592 2 cro -
+127008 49221 2 cro +
+127008 2592 0 cI +
+
+####### Attractor graphs #######
+
+##### Number of attractors: 
+2
+
+### Attractor region 1 
+
+# Attractor id | int
+352
+
+# Number of states | int
+2
+
+# List of states: id genes binding_sites | int str str
+2592 10000000000 00000101000100000 
+2720 00000000000 00000101010100000 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+2592 2720 0 cI +
+2720 2592 0 cI -
+
+### Attractor region 2 
+
+# Attractor id | int
+352
+
+# Number of states | int
+8
+
+# List of states: id genes binding_sites | int str str
+33093 00000000010 01000000101000101 
+69 01100110000 00000000001000101 
+325 00000000000 00000000101000101 
+114757 01100110010 11100000001000101 
+115013 00000000010 11100000101000101 
+49221 01100110010 01100000001000101 
+49477 00000000010 01100000101000101 
+32837 01100110010 01000000001000101 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+33093 325 1 cII -
+33093 32837 2 cro -
+69 32837 1 cII +
+69 325 2 cro +
+325 69 2 cro -
+114757 115013 2 cro +
+115013 49477 1 cII -
+115013 114757 2 cro -
+49221 114757 1 cII +
+49221 49477 2 cro +
+49477 33093 1 cII -
+49477 49221 2 cro -
+32837 49221 1 cII +
+32837 33093 2 cro +
+
+
+####### End #######

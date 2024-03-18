@@ -1,0 +1,92 @@
+####### Representation graph #######
+
+### Input file: inlambda/state_space_sg_001123.txt
+### Output file: outlambda/state_space_sg_001123_rg.txt
+### Included only part reachable from INI state: False
+
+### Number of nodes: 8
+### Number of attractor nodes: 2
+### Number of switching nodes: 2
+### Number of other nodes: 4
+
+# List of attractor nodes: id genes binding_sites | int  str str
+69 01100110000 00000000001000101 
+2602 10000000000 00000101000101010 
+
+# List of switching nodes: id genes binding_sites | int  str str
+125033 00000000011 11110100001101001 
+127017 11100110011 11111000000101001 
+
+# List of other nodes: id genes binding_sites | int  str str
+4136 01110110000 00001000000101000 
+128426 00000000011 11111010110101010 
+128665 00000000011 11111011010011001 
+128677 00000000011 11111011010100101 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+4136 127017 2 cro +
+125033 69 0 cI -
+125033 2602 2 cro -
+127017 69 2 cro +
+127017 2602 0 cI +
+128426 125033 2 cro -
+128665 125033 4 N -
+128677 125033 1 cII -
+
+####### Attractor graphs #######
+
+##### Number of attractors: 
+2
+
+### Attractor region 1 
+
+# Attractor id | int
+7
+
+# Number of states | int
+2
+
+# List of states: id genes binding_sites | int str str
+2602 10000000000 00000101000101010 
+2730 00000000000 00000101010101010 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+2602 2730 0 cI +
+2730 2602 0 cI -
+
+### Attractor region 2 
+
+# Attractor id | int
+7
+
+# Number of states | int
+8
+
+# List of states: id genes binding_sites | int str str
+69 01100110000 00000000001000101 
+325 00000000000 00000000101000101 
+32837 01100110010 01000000001000101 
+33093 00000000010 01000000101000101 
+98373 01100110010 11000000001000101 
+114757 01100110010 11100000001000101 
+98629 00000000010 11000000101000101 
+115013 00000000010 11100000101000101 
+
+# List of transitions: source_id dest_id gene_id gene_name {+,-} | int int int str def
+69 32837 1 cII +
+69 325 2 cro +
+325 69 2 cro -
+32837 98373 1 cII +
+32837 33093 2 cro +
+33093 325 1 cII -
+33093 32837 2 cro -
+98373 114757 1 cII +
+98373 98629 2 cro +
+114757 115013 2 cro +
+98629 33093 1 cII -
+98629 98373 2 cro -
+115013 98629 1 cII -
+115013 114757 2 cro -
+
+
+####### End #######
