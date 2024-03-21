@@ -17,9 +17,9 @@ The scripts require the following Python packages to be inatalled: `NumPy`, `Net
 
 For computing representation graph for the given input file:
 
-`
+```
 python build_rgraphs_file.py -i <source file> -o <destination file (graph)> [-draw <destination file (graphml)>] [-ini] [-s]
-`
+```
 
 where:
 
@@ -31,9 +31,9 @@ where:
 
 For computing representation graphs for all input files from the given directory:
 
-`
+```
 python build_rgraphs_all.py <source dir> <destination dir> [-draw] [-ini]
-`
+```
 
 This calls `build_rgraphs_file.py` script for all files in input directory `<source dir>` and saves its output in `<destination dir>`.
 The both directories should exist and `<source dir>` should contain only syntactically correct HSM model state space files. The arguments `-draw` and `-ini`, if provided, are passed to `build_rgraphs_file.py` script.
