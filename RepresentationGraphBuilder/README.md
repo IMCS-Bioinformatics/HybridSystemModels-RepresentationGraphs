@@ -47,9 +47,13 @@ The `models` directory contains sample input and output files for lambda phage, 
 [https://github.com/IMCS-Bioinformatics/HybridSystemModels](https://github.com/IMCS-Bioinformatics/HybridSystemModels) repository. 
 Sample visualisations of the obtained representation graphs by yEd Graph Editor (after applying cosmetic layout changes and node groupings) are shown below:
 
+Representation graph and 4 steady state attractors for myeloid cell differentiation 'base model':
+
 ![Representation graph and 4 steady state attractors for myeloid cell differentiation 'base model'](readme/images/myeloid_base.png)  
 
-![Representation graph and lysis and lysogeny attractors for a typical HSM frame of HK022 phage model ](readme/images/hk022_000009.png)  
+Representation graph and lysis and lysogeny attractors for a typical HSM frame of HK022 phage model:
+
+![Representation graph and lysis and lysogeny attractors for a typical HSM frame of HK022 phage model](readme/images/hk022_000009.png)  
 
 ## The last update notes: 
 
