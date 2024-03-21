@@ -8,7 +8,7 @@ Clone this repository locally and run Python scripts from the `bin` directory. I
 - `build_rgraphs_file.py`: builds representation graph for the given input file
 - `build_rgraphs_all.py`: builds representation graphs for all input files from the given directory
 
-## Requirements and usage: 
+## Requirements: 
 
 The scripts have been tested with Python release versions 3.8.1 and 3.10.12 on Windows and Ubuntu Linux operating systems, compatibility with range of other Python 3.0 versions could be expected. 
 The scripts require the following Python packages to be inatalled: `NumPy`, `NetworkX`, `igraph` and `N2G` (and have been tested specifically with the package versions: `numpy-1.24.4`, `netwrokx-3.1`, `igraph-0.11.4` and `N2G-0.3.3`).   
