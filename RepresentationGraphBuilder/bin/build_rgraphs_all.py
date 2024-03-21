@@ -9,7 +9,7 @@
 # numpy-1.24.4, netwrokx-3.1, igraph-0.11.4, N2G-0.3.3
 # Contributors: 
 # Institute of Mathematics and Computer Science, University of Latvia
-# v_1.0.17, 18.03.2024
+# v_1.0.18, 21.03.2024
 # Distributed under GPLv3 license
 # Copyright (c) 2024 Juris Viksna
 ################################################################################
@@ -23,6 +23,8 @@ from argparse import ArgumentParser, HelpFormatter
 ################################################################################
 # check and assign the input arguments
 ################################################################################
+
+print(sys.executable)
 
 class RawFormatter(HelpFormatter):
     def _fill_text(self, text, width, indent):
@@ -58,7 +60,7 @@ for infile in hsm_files:
 	if args['ini']:
 		pass_args = pass_args+" -ini "
 	print(pass_args)
-	os.system("python build_rgraphs_file.py "+pass_args)
+	os.system("\""+str(sys.executable)+"\""+" "+os.path.dirname(os.path.abspath(__file__))+"/build_rgraphs_file.py "+pass_args)
 
 ################################################################################
 ################################################################################
