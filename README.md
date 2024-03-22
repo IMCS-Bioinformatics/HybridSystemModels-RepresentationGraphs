@@ -129,7 +129,8 @@ The header part of the file should be followed by a list of exactly GeneNumb ent
 ### Update notes
   
 Version 1.0.18, 22.03.2024
-This RepresentationGraphBuilder release branch from HybridSystemModels repository [https://github.com/IMCS-Bioinformatics/HybridSystemModels](https://github.com/IMCS-Bioinformatics/HybridSystemModels). 
+
+RepresentationGraphBuilder release branch from HybridSystemModels repository [https://github.com/IMCS-Bioinformatics/HybridSystemModels](https://github.com/IMCS-Bioinformatics/HybridSystemModels). 
 This release is created for cross-referencing from a permanent backup at Zenodo repository.
 
 ### Contact
