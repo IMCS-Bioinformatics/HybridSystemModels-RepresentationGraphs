@@ -8,12 +8,12 @@ Clone this repository locally and run Python scripts from the `bin` directory. I
 - `build_rgraphs_file.py`: builds representation graph for the given input file
 - `build_rgraphs_all.py`: builds representation graphs for all input files from the given directory
 
-## Requirements: 
+## Requirements
 
 The scripts have been tested with Python release versions 3.8.1 and 3.10.12 on Windows and Ubuntu Linux operating systems, compatibility with range of other Python 3.0 versions could be expected. 
 The scripts require the following Python packages to be inatalled: `NumPy`, `NetworkX`, `igraph` and `N2G` (and have been tested specifically with the package versions: `numpy-1.24.4`, `netwrokx-3.1`, `igraph-0.11.4` and `N2G-0.3.3`).   
 
-## Usage: 
+## Usage
 
 For computing representation graph for the given input file:
 
@@ -23,7 +23,7 @@ python build_rgraphs_file.py -i <source file> -o <destination file (graph)> [-dr
 
 where:
 
-- `<source file>`: the input file containing HSM model state space in syntactically right format
+- `<source file>`: the input file containing HSM model state space graph in syntactically right format
 - `<destination file (graph)>`: the output file containing representation graph and its attractors 
 - `<destination file (graphml)>` (optional): the output file containing visualisations of representation graph and attractors in graphml format (can be viewed and edited with e.g. yEd Graph Editor)  
 - `-ini` (optional): if provided, compute representation graph only for the part of the state space from the given initial state (INI state should be included in input file) 
@@ -36,7 +36,7 @@ python build_rgraphs_all.py <source dir> <destination dir> [-draw] [-ini]
 ```
 
 This calls `build_rgraphs_file.py` script for all files in input directory `<source dir>` and saves its output in `<destination dir>`.
-The both directories should exist and `<source dir>` should contain only syntactically correct HSM model state space files. The arguments `-draw` and `-ini`, if provided, are passed to `build_rgraphs_file.py` script.
+The both directories should exist and `<source dir>` should contain only syntactically correct HSM model state space graph files. The arguments `-draw` and `-ini`, if provided, are passed to `build_rgraphs_file.py` script.
 The naming conventions of files are as follows: the representation graph of input file `filname.*` will be saved in file `filname_rg.txt`, 
 the drawing of representation graph will be saved in file `filename_rg.graphml`.   
 
@@ -55,9 +55,80 @@ Sample visualisations of the obtained representation graphs by yEd Graph Editor 
 
 **Representation graph and lysis and lysogeny attractors for a typical HSM frame of HK022 phage model**
 
-## The last update notes: 
+## Input file format
 
-Version 1.0.18, 21.03.2024
+The program accepts as input files of gene regulatory network state spaces described by labelled graphs in simple text-based format. The input format is tailored for state space graphs of GRN models defined using HSM framework, but might be semantically compatible with descriptions of discrete GRN state spaces modelled by other formalisms.
+
+An initial fragment of a sample input file is shown below. The lines with the first printable character being `#` are treated as comments and ignored. The semantics and syntax requirements of individual fields are outlined in the tables below. The current version of the program does not provide syntax checking and protection against errors in input files.  
+
+**Initial fragment of a sample input file**
+
+```
+### Sample HSM state space graph input file  ###
+#
+# GeneNumb | int
+11
+# BSNumb | int
+11
+# StateCount | int
+4376
+# INIState | int
+0
+# GeneNames | str[]
+cI cII cro Q N O P cIII xis int Struc 
+# BSNames | str[] 
+bcII_1{cII} bcII_2{cII} bCII_3{cII} bQ{Q} bN{N} bOR1{cI,cro} bOR2{cI,cro} bOR3{cI,cro} bOL1{cI,cro} bOL2{cI,cro} bOL3{cI,cro} 
+
+# list of states and transitions
+# state attributes: Id GeneStates BSStates StateType EdgeCount | int str str int int
+# transition attributes: DestId GeneId {+,-} | int int def
+
+0  01101111100 00000000000000000 0 3
+16384 1 + 1 2 + 4096 4 + 
+
+1  01101111100 00000000000000001 0 3
+16385 1 + 65 2 + 4097 4 + 
+
+65  01101111100 00000000001000001 0 3
+16449 1 + 321 2 + 4161 4 + 
+
+321  00001001100 00000000101000001 0 2
+65 2 - 4417 4 + 
+
+...
+```
+
+**The header part of input file**
+
+|  Field        |  Format              | Sample value                            | Comment | 
+|---------------|----------------------|-----------------------------------------|---------|
+| GeneNumb      | `integer` > 0        | 11                                      | Number of genes |
+| BSNumb        | `integer` > 0        | 11                                      | Number of TF binding sites |
+| StateCount    | `integer` > 0        | 4376                                    | Number of states in graph |
+| INIState      | `string`used for              | 0                                       | Should be equal to one of the provided state Ids |
+| GeneNames     | `string[]`           | cI cII cro ...                          | List of length GeneNumb with names of genes |
+| BSNames       | `string[]`           | bcII_1{cII} bcII_2{cII} bCII_3{cII} ... | List of length BSNumb with names of TF binding sites |
+
+**List of states and transitions**
+
+The header part of the file should be followed by a list of exactly GeneNumb entries describing states and transitions. Each state description should be followed by a list of exactly EdgeCount transition descriptions.
+
+|  Field        |  Format                                    | Sample value                            | Comment | 
+|---------------|---------------------------------------------|-----------------------------------------|---------|
+| Id            | `string`                                    | 65                                      | State identifier, should be unique for each of the states |
+| GeneStates    | `string` of `0` and `1` of length GeneNumb  | 01101111100                             | Activity values of genes |
+| BSStates      | `string`                                    | 00000000001000001                       | Occupancy states of TF binding sites. The field is included here for reference only, encodings for description of site occupancies may vary. |
+| StateType     | `0` or `1`                                  | 0                                       | Value `1` can be pre-assigned for confirmed non-transitional SCCs, `0` otherwise |
+| EdgeCount     | `integer` >= 0                              | 3                                       | Number of outgoing edges |
+| DestId        | `string`                                    | 16385                                   | Transition destination state Id, should be equal of one of the provided state IDs |
+| GeneId        | `integer` in range 0..GeneNumb-1            | 1                                       | Index of gene triggering transition |
+| {+,-}         | `+` or `-`                                | +                                       | `+` if the transition triggering gene is active, `-` otherwise |
+
+*Note:* `string` values should be nonempty and can contain printable characters except `#` and `space`. For some fields additional restrictions of allowed characters apply and are stated in Format column. 
+
+## Update notes
+  
+Version 1.0.18, 22.03.2024
 
    
 
