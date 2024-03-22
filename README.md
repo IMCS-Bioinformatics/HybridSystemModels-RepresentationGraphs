@@ -126,9 +126,11 @@ The header part of the file should be followed by a list of exactly GeneNumb ent
 
 *Note:* `string` values should be nonempty and can contain printable characters except `#` and `space`. For some fields additional restrictions of allowed characters apply and are stated in Format column. 
 
-## Update notes
+### Update notes
   
 Version 1.0.18, 22.03.2024
+This RepresentationGraphBuilder release branch from HybridSystemModels repository [https://github.com/IMCS-Bioinformatics/HybridSystemModels](https://github.com/IMCS-Bioinformatics/HybridSystemModels). 
+This release is created for cross-referencing from a permanent backup at Zenodo repository.
 
 ### Contact
 This software is developed at the Bioinformatics group of the [Institute of Mathematics and Computer science](https://lumii.lv/). For personal communications, please contact Juris Viksna.
