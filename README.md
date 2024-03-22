@@ -1,139 +1,138 @@
-# Hybrid system modelling framework HSM
-
-HSM modelling framework [1] is a type hybrid system based modelling formalist that is specially adapted for description and analysis of biomolecular networks. 
-HSM is designed to include to be as simple as possible to facilitate model analysis and still to provide sufficient modelling power for accurate descriptions of biological systems. 
-
-A standing-out feature of HSM approach is that it allows differentiating between quantitative and qualitative behavioural aspects of the modelled system. Using this approach gene regulatory network is 
-regarded to be fully defined by HSM with concrete model-specific functions describing variable changes and thresholds triggering state transitions. At the same time, the knowledge about the 
-underlying HSM is assumed to be limited and the initial models are given by HSM frames that include only discrete information about comparative values of HSM parameters (such as growth rates of 
-functions or triggering thresholds) chosen to correspond to experimentally derived or generally assumed facts about the modelled biologic al system. If reachability of states in state space of the 
-initial HSM frame depends on additional comparative relations between the model parameters, these are iteratively added as additional constraints in frame refinements until all the constraints on the 
-parameters affecting the state reachability have been derived. One of the first HSM models LPH1 [2] has been designed lambda phage virus and allowed to derive biological hypotheses on binding site affinities 
-that are required for model dynamic behaviour to be consistent with known observational facts, and which in principle are experimentally verifiable by genome rearrangements.
-
-[1] A.Brazma, K.Cerans, D.Ruklisa, T.Schlitt, J.Viksna. *Modeling and analysis of qualitative behaviour of gene regulatory networks.* Lecture Notes in Computer Science, vol.7699, pp.51-66, 2015.
-
-[2] D.Ruklisa, A.Brazma, K.Cerans, T.Schlitt, J.Viksna. *Dynamics of gene regulatory networks and their dependence on network topology and quantitative parameters – the case of phage Lambda.* BMC Bioinformatics, 20:296, 2019, doi.org/10.1186/s12859-019-2909-z.
-
-**HSM models.** The models currently included here are LPH2 (a lambda phage model based on more recent biological data), HK022 (a model of lambdoid phage HK022, which notably lacks N antitermination gene),
- and model of core genes for Mu phage.
-
-|![](./assets/LPH2.png) HSM models LPH2 | ![](./assets/model_mu_03_b.PNG) HSM model Mu|
-|:-------------------------:|:-------------------------:|
- 
-The ’core’ models are shown in red and contain genes (cI, cII,cro) and binding sites (bOR, bcII-1) that are involved in regulatory feedback.
-
-![](./assets/OP1_01.PNG)
-**Representational example of one equivalence classes of LPH2 state spaces. There are 6 equivalence classes altogether, the one shown here describes the 'ordinary' lysis and lysogeny cycles 
-corresponding to 16 and 2 state attractors in state space.**
-
-**Software.** The available software components on GitHub corresponds to an ongoing work in progress and are provided 'as is' in case they might be useful, but without pretensions to offer a 
-user-friendly pipeline for HSM model design and analysis. In general the software should be able to reproduce already published analysis results on a number of concrete HSM models, which are also 
-provided here. Development and analysis of new HSM models most likely will require modifications in source code.
-
-The following software components are currently available:
-
-**HSMModelConverter** – conversion of human readable HSM model descriptions to a more technical model description format that is used as input for analysis programs.
-
-**HSMSpaceAnalyzer** – construction of all state spaces for HSM model under the given set of constraints and analysis of state space component and attractor structure.
-
-**HSMFeatureExtractor** – analysis and feature extraction for a given set of state spaces constructed for a particular HSM model.
-
-**HSMFrameRefinementExplorer** – construction and analysis of universal state space for HSM model using an iterative model frame refinement approach.
-
-**HSMTransitionGraphs** – construction of state transition graphs for models defined in Prolog syntax (currently includes models of myeloid cell differentiation).
-
-In addition there is a visualisation component based on in-house legacy software modules. Unfortunately due to various compatibility problems inclusion of this visualisation part in open source 
-distributions is not possible. In case it can be useful the visualisation is available 'as is' from the following website: http://susurs.mii.lu.lv/HSMVisualizer/.
-## HSMModelConverter
-Conversion of human readable HSM model descriptions to a more technical model description format that is used as input for analysis programs.
-
-**Program and compilation.** To use the parser it has to be compiled with a c++ compiler with c++11 or above.
-Example of command line compilation:
-```sh
-g++ parser.cpp -o HybridSystemModels.exe
-```
-
-**Usage and examples.**
-After compiling, run the parser with command line:
-```sh
-HybridSystemModels.exe inputfile outputfile
-```
-where `HybridSystemModels.exe` is the name of the compiled program, `inputfile` is the path to the model and `outputfile` is the name of the resulting file.
-
-For example:
-```sh
-HybridSystemModels.exe ModelsReadable/Circadian_03.txt ModelsTechnical/Circadian_03.txt
-```
-
-## HSMSpaceAnalyzer
-Construction of all state spaces for HSM model under the given set of constraints and analysis of state space component and attractor structure.
-
-A software module for generating set state spaces for HSM model under all consistent constraints on binding affinities. 
-As input is provided a HSM model file describing genes, transcription factors, their binding sites and regulatory functions; 
-the model specific constraints, however, are configurable in program code and are set according to model name that is given in input file. 
-Currently the following model names are recognised by the program: *Lambda_Core_red, Lambda_Core_blue, Lambda_Complete, Lambda_Oppenheim, HK22_Complete, Mu_3_01, Circadian_03, Circadian_03_2, Loops_2*.
-
-The program outputs set of HSM model state spaces (each in a separate file) listing modes, mode transitions, connected component and attractor structure of state space graph. There are several parameters (e.g. conditions for mode reachability) that can be specified in source code.
-
-**Program and compilation.** C++ source code is compatible with C++Builder (due to convenience of using for development purposes also in-house developed legacy visualisation components), 
-thus compilation with newer C++ compilers may require additional flags/parameters (such as *-fpermissive* for GNU C++ compiler). 
-The provided binaries are Windows 32 bit executable compiled with Borland C++ Builder 6 and Linux 64 bit executable compiled with GCC 6.5.0.
-
-**Usage and examples.** The model files are read from local directory HSM_Models with file name provided as input, e.g.:
-
-```sh
-HSMSpaceAnalyzer hsm_lambda_oppenheim.txt 
-```
-
-will use the file *HSM_Models/hsm_lambda_oppenheim.txt* as input. The computed state spaces are stored in directory *HSM_State_Spaces* and in subfolder 
-specified by model name as given in input file – e.g. for *hsm_lambda_oppenheim.txt* in folder *HSM_State_Spaces/Lambda_Oppenheim*. The folder should already exist.
-
- 
-## HSMFeatureExtractor 
-Analysis and feature extraction for a given set of state spaces constructed for a particular HSM model.
-
-**Requirements**
-* python 3
-* [NetworkX](https://networkx.org/) graph algorithm library 
-
-**Usage and examples.**
- To run it use the following command line: 
-```sh
-python print_statistics.py data_folder
-```
-The parameter `data_folder` is the folder name containing state space files output by *HSMSpaceAnalyzer*
-
-For example:
-```sh
-python print_statistics.py ../HSMSpaceAnalyzer/HSM_StateSpaces/HK22_Complete
-```
-
-
-## HSMFrameRefinementExplorer
-Construction and analysis of universal state space for HSM model using an iterative model frame refinement approach.
-
-The Frame Refinement Exploration tool produces a graph of symbolic states and their transitions, where a symbolic state comprises the mode (binding site association state) and the (partial) information on the binding site association/disassociation threshold ordering and possibly also substance affinity ordering with respect to the association/disassociation thresholds (where they are not recorded within the binding site association states); the transitions are marked by a binding site association or disassociation events.
-Furthermore, the tool allows computing a factor graph of the initial state space graph by means of bisimulation: two symbolic states that can not be distinguished by their available transitions, are grouped together. 
-The strongly connected components in the factor graph are computed, as well.
-The prototype is implemented in Haskell. The main program Statespace.hs contains the algorithm implementation. The data model is also described as a collection of functions and is placed in auxiliary files to be imported during the main program execution.
-For more details of the implementation and its running possibilities, consult the Frame Refinement Exploration Tool section in this repository.
-The results of running the algorithm with different model parameters are in the Results section. 
-
-## ModelsMyeloidDifferentiation
-Construction of state transition graphs for  myeloid cell differentiation models defined in Prolog syntax.
-
-Includes HSM models of myeloid cell differentiation. Each of the included Prolog files defines a particular version of the model and contains also rules (instructions) for generation of its state space. The Prolog interpreter for the models outputs their state spaces as simple text files, which can be further analysed by other tools. The programs are tested and compatible with SWI-Prolog (version 7.4.2). 
- 
 # RepresentationGraphBuilder
 Python program modules for building Representation Graphs for gene regulatory network state spaces created using Hybrid System Model (HSM) framework.
 
-From the given input files containing HSM model state spaces computes their representation graphs and their attractors as well as their visualisations (optional) in graphml format, which can be viewed and edited with e.g. yEd Graph Editor.
+## Getting started
 
-The durectory includes sample input and output files for lambda phage, HK022 phage and Mu phage viruses HSM models, and for myeloid cell differentiation model. These input files of HSM state spaces have been generated by **HSMSpaceAnalyzer** and **ModelsMyeloidDifferentiation** program modules described above.   
- 
+Clone this repository locally and run Python scripts from the `bin` directory. It contains two scripts: 
+
+- `build_rgraphs_file.py`: builds representation graph for the given input file
+- `build_rgraphs_all.py`: builds representation graphs for all input files from the given directory
+
+## Requirements
+
+The scripts have been tested with Python release versions 3.8.1 and 3.10.12 on Windows and Ubuntu Linux operating systems, compatibility with range of other Python 3.0 versions could be expected. 
+The scripts require the following Python packages to be inatalled: `NumPy`, `NetworkX`, `igraph` and `N2G` (and have been tested specifically with the package versions: `numpy-1.24.4`, `netwrokx-3.1`, `igraph-0.11.4` and `N2G-0.3.3`).   
+
+## Usage
+
+For computing representation graph for the given input file:
+
+```
+python build_rgraphs_file.py -i <source file> -o <destination file (graph)> [-draw <destination file (graphml)>] [-ini] [-s]
+```
+
+where:
+
+- `<source file>`: the input file containing HSM model state space graph in syntactically right format
+- `<destination file (graph)>`: the output file containing representation graph and its attractors 
+- `<destination file (graphml)>` (optional): the output file containing visualisations of representation graph and attractors in graphml format (can be viewed and edited with e.g. yEd Graph Editor)  
+- `-ini` (optional): if provided, compute representation graph only for the part of the state space from the given initial state (INI state should be included in input file) 
+- `-s` (optional): run silently
+
+For computing representation graphs for all input files from the given directory:
+
+```
+python build_rgraphs_all.py <source dir> <destination dir> [-draw] [-ini]
+```
+
+This calls `build_rgraphs_file.py` script for all files in input directory `<source dir>` and saves its output in `<destination dir>`.
+The both directories should exist and `<source dir>` should contain only syntactically correct HSM model state space graph files. The arguments `-draw` and `-ini`, if provided, are passed to `build_rgraphs_file.py` script.
+The naming conventions of files are as follows: the representation graph of input file `filname.*` will be saved in file `filname_rg.txt`, 
+the drawing of representation graph will be saved in file `filename_rg.graphml`.   
+
+## Examples
+
+The `models` directory contains sample input and output files for lambda phage, HK022 phage and Mu phage viruses HSM models, and for myeloid cell differentiation model 
+(for meaningful results the latter should be analysed with `-ini` flag). The input files of HSM state spaces have been generated by programs from
+[https://github.com/IMCS-Bioinformatics/HybridSystemModels](https://github.com/IMCS-Bioinformatics/HybridSystemModels) repository. 
+Sample visualisations of the obtained representation graphs by yEd Graph Editor (after applying cosmetic layout changes and node groupings) are shown below.
+
+![Representation graph and 4 steady state attractors for myeloid cell differentiation 'base model'](readme/images/myeloid_base.png)  
+
+**Representation graph and 4 steady state attractors for myeloid cell differentiation 'base model'**
+
+![Representation graph and lysis and lysogeny attractors for a typical HSM frame of HK022 phage model](readme/images/hk022_000009.png)  
+
+**Representation graph and lysis and lysogeny attractors for a typical HSM frame of HK022 phage model**
+
+## Input file format
+
+The program accepts as input files of gene regulatory network state spaces described by labelled graphs in simple text-based format. The input format is tailored for state space graphs of GRN models defined using HSM framework, but might be semantically compatible with descriptions of discrete GRN state spaces modelled by other formalisms.
+
+An initial fragment of a sample input file is shown below. The lines with the first printable character being `#` are treated as comments and ignored. The semantics and syntax requirements of individual fields are outlined in the tables below. The current version of the program does not provide syntax checking and protection against errors in input files.  
+
+**Initial fragment of a sample input file**
+
+```
+### Sample HSM state space graph input file  ###
+#
+# GeneNumb | int
+11
+# BSNumb | int
+11
+# StateCount | int
+4376
+# INIState | int
+0
+# GeneNames | str[]
+cI cII cro Q N O P cIII xis int Struc 
+# BSNames | str[] 
+bcII_1{cII} bcII_2{cII} bCII_3{cII} bQ{Q} bN{N} bOR1{cI,cro} bOR2{cI,cro} bOR3{cI,cro} bOL1{cI,cro} bOL2{cI,cro} bOL3{cI,cro} 
+
+# list of states and transitions
+# state attributes: Id GeneStates BSStates StateType EdgeCount | int str str int int
+# transition attributes: DestId GeneId {+,-} | int int def
+
+0  01101111100 00000000000000000 0 3
+16384 1 + 1 2 + 4096 4 + 
+
+1  01101111100 00000000000000001 0 3
+16385 1 + 65 2 + 4097 4 + 
+
+65  01101111100 00000000001000001 0 3
+16449 1 + 321 2 + 4161 4 + 
+
+321  00001001100 00000000101000001 0 2
+65 2 - 4417 4 + 
+
+...
+```
+
+**The header part of input file**
+
+|  Field        |  Format              | Sample value                            | Comment | 
+|---------------|----------------------|-----------------------------------------|---------|
+| GeneNumb      | `integer` > 0        | 11                                      | Number of genes |
+| BSNumb        | `integer` > 0        | 11                                      | Number of TF binding sites |
+| StateCount    | `integer` > 0        | 4376                                    | Number of states in graph |
+| INIState      | `string`used for              | 0                                       | Should be equal to one of the provided state Ids |
+| GeneNames     | `string[]`           | cI cII cro ...                          | List of length GeneNumb with names of genes |
+| BSNames       | `string[]`           | bcII_1{cII} bcII_2{cII} bCII_3{cII} ... | List of length BSNumb with names of TF binding sites |
+
+**List of states and transitions**
+
+The header part of the file should be followed by a list of exactly GeneNumb entries describing states and transitions. Each state description should be followed by a list of exactly EdgeCount transition descriptions.
+
+|  Field        |  Format                                    | Sample value                            | Comment | 
+|---------------|---------------------------------------------|-----------------------------------------|---------|
+| Id            | `string`                                    | 65                                      | State identifier, should be unique for each of the states |
+| GeneStates    | `string` of `0` and `1` of length GeneNumb  | 01101111100                             | Activity values of genes |
+| BSStates      | `string`                                    | 00000000001000001                       | Occupancy states of TF binding sites. The field is included here for reference only, encodings for description of site occupancies may vary. |
+| StateType     | `0` or `1`                                  | 0                                       | Value `1` can be pre-assigned for confirmed non-transitional SCCs, `0` otherwise |
+| EdgeCount     | `integer` >= 0                              | 3                                       | Number of outgoing edges |
+| DestId        | `string`                                    | 16385                                   | Transition destination state Id, should be equal of one of the provided state IDs |
+| GeneId        | `integer` in range 0..GeneNumb-1            | 1                                       | Index of gene triggering transition |
+| {+,-}         | `+` or `-`                                | +                                       | `+` if the transition triggering gene is active, `-` otherwise |
+
+*Note:* `string` values should be nonempty and can contain printable characters except `#` and `space`. For some fields additional restrictions of allowed characters apply and are stated in Format column. 
+
+## Update notes
+  
+Version 1.0.18, 22.03.2024
+
 ### Contact
 This software is developed at the Bioinformatics group of the [Institute of Mathematics and Computer science](https://lumii.lv/). For personal communications, please contact Juris Viksna.
 
 ### Acknowledgements
 This research was supported by the Latvian Council of Science Projects No. lzp-2019/1-0432 and  No. lzp-2021/1-0236.
+
